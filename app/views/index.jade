@@ -1,0 +1,106 @@
+extends layouts/default
+
+block content
+    section.page.header-page
+      .text-vertical-center
+        h1
+          | 公有地大行動
+
+        .ui.three.column.grid
+          .column
+            .ui.center.aligned.stacked.segment
+              | 每年被賣掉
+              h3
+                | 800 公頃 
+          .column
+            .ui.center.aligned.stacked.segment
+              | 每年被都市更新
+              h3
+                | 200 公頃   
+          .column
+            .ui.center.aligned.stacked.segment
+              | 每年被BOT
+              h3
+                | 200 公頃 
+        a(href="#area")
+          i.big.circular.green.double.angle.down.icon
+          
+    section#area.area-page.page
+      .text-vertical-center
+        h1
+          | 天龍特公地大搜查 <span class="beta-font">&beta;</span>
+   
+        .ui.selection.dropdown.choice-block
+          .default.text
+            | 行政區
+          i.dropdown.icon
+          .menu
+            a.item(data-value='')
+              | 全部
+            a.item(data-value='中正區')
+              | 中正區
+            a.item(data-value='大同區')
+               | 大同區
+            a.item(data-value='中山區')
+               | 中山區
+            a.item(data-value='萬華區')
+               | 萬華區
+            a.item(data-value='信義區')
+               | 信義區
+            a.item(data-value='松山區')
+               | 松山區
+            a.item(data-value='大安區')
+               | 大安區
+            a.item(data-value='南港區')
+               | 南港區
+            a.item(data-value='北投區')
+               | 北投區
+            a.item(data-value='內湖區')
+               | 內湖區
+            a.item(data-value='士林區')
+               | 士林區
+            a.item(data-value='文山區')
+               | 文山區
+        .ui.selection.dropdown.choice-area
+          .default.text
+            | 面積
+          i.dropdown.icon
+          .menu  
+            a.item(data-value='')
+              | 全部          
+            a.item(data-value=">=500")
+              | 500以上
+            a.item(data-value=">20 AND <500")
+              | 20 ~ 500
+            a.item(data-value="<=20")
+              | 20以下
+        .ui.selection.dropdown.choice-unit
+          .default.text
+            | 經營單位
+          i.dropdown.icon
+          .menu  
+            a.item(data-value='')
+              | 全部
+            a.item(data-value="交通部%")
+              | 交通部
+            a.item(data-value="財政部%")
+              | 財政部
+    section#map.map-page.page
+      #map-loading.ui.dimmer
+        .ui.medium.text.loader
+          | 正在產生地圖
+      #map-canvas
+      .text-vertical-center.map-notice
+        h1
+          | 請選擇地區
+    section#request.request-page.page  
+      .text-vertical-center
+        h1
+          | 我們的訴求
+        h3
+          | 一、不要在賣我們的土地
+        .ui.header
+          | 邀請您共同關注
+        .circular.ui.icon.button
+          i.icon.unhide
+          | 關注

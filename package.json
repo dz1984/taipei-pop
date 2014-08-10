@@ -1,0 +1,24 @@
+{
+  "name": "taipei-pop",
+  "version": "0.0.0",
+  "description": "天龍特公地",
+  "main": "server.js",
+  "scripts": {
+    "start": "gulp serve"
+  },
+  "author": "dz1984",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dz1984/taipei-pop.git"
+  },
+  "dependencies": {
+    "express": "3.3.8",
+    "jade": "*",
+    "gulp": "~3.8.5",
+    "gulp-nodemon": "~1.0.4",
+    "gulp-jshint": "^1.7.1",
+    "ds": "~1.4.0",
+    "googleapis": "~1.0.5"
+  }
+}
