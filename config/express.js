@@ -16,6 +16,7 @@ module.exports = function(app,config){
         express.logger('dev'),
         express.cookieParser(),
         express.bodyParser(),
+        express.compress()
     ];
     
     for (var key in setConfigs){

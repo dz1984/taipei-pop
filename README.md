@@ -9,26 +9,11 @@ $ npm install -g gulp
 $ npm install
 ```
 
-## 前置作業
-
-+ 設定 Google API
-
-TODO : explain 
-
-+ Clone Fusion Table
-
-TODO : explain
-
-## 開發方式
+## 使用方式
 
 ```shell
-$ npm start
+$ gulp serve
 ```
-TODO : How to create a new API?
-
-## Heroku
-
-TODO : explain
 
 ## 授權條款
 

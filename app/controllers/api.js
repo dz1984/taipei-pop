@@ -7,7 +7,7 @@ var OAuth2 = google.auth.OAuth2;
 
 var fusiontables = google.fusiontables('v1');
 
-var DS = require("ds").DS;
+var Cache = require("ds-cache");
 
 var API_KEY = 'YOUR_GOOGLE_API_KEY';
 var TABLENAME = 'YOUR_FUSION_TABLE_ID';
@@ -69,24 +69,62 @@ var _generateHashId = function(query) {
 
     return md5.update(query_string).digest('hex');
 };
+var _getCache  = function(config) {
+    var cachePath = config.cachePath;
+    var cache = new Cache(
+        {
+            filename : cachePath + "/ds.json",
+            auto_save: true
+        }
+    );
+
+    return cache;
+};
+
+exports.cacheInfo = function(req, res, next) {
+    var config = req.app.get('envConfig');
+    var cache = _getCache(config);
+
+    var size = cache.size();
+    var content_length = cache.content().length;
+
+    var info = {
+        size: size,
+        length: content_length
+    };
+
+    res.send(info);
+};
 
 exports.clearCache = function(req, res, next) {
-    var cachePath = req.app.get('envConfig').cachePath;
-    var ds = new DS( cachePath + "/ds.json");
+    var config = req.app.get('envConfig');
+    var cache = _getCache(config);
 
-    ds.clear();
-    ds.save();
+    cache.clear();
     
     res.send(200);
 };
 
 exports.toSearch = function(req, res, next) {
+    var config = req.app.get('envConfig');
+    var cache = _getCache(config);
+
+    var hashid = _generateHashId(req.query);
+
+    var resultRow = cache.get(hashid);
+    
+    if (resultRow){
+        res.send(resultRow);
+        return;
+    }
+
     // catch the query string 
     var fields = Object.keys(FIELDS);
 
     var conditions = [];
 
     console.log('Query String: ' + JSON.stringify(req.query));
+
     fields.forEach(function(field){
         var value = req.query[field];
 
@@ -103,16 +141,6 @@ exports.toSearch = function(req, res, next) {
 
     console.log('SQL:' + query);
 
-    var hashid = _generateHashId(req.query);
-
-    var cachePath = req.app.get('envConfig').cachePath;
-    var ds = new DS( cachePath + "/ds.json");
-
-    var resultRow = ds[hashid];
-
-    if (resultRow){
-        res.send(resultRow);
-    } else {
         var params = {
             'sql': query,
             'key': API_KEY
@@ -139,8 +167,7 @@ exports.toSearch = function(req, res, next) {
                 "features": GeoJsonList
             };
 
-            ds[hashid] = GeoJson;
-            ds.save();
+        cache.set(hashid, GeoJson);
             
             res.send(GeoJson);
         });
