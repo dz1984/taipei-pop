@@ -1,6 +1,6 @@
 {
   "name": "taipei-pop",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "天龍特公地",
   "main": "server.js",
   "scripts": {
@@ -19,6 +19,6 @@
     "gulp-nodemon": "~1.0.4",
     "gulp-jshint": "^1.7.1",
     "googleapis": "~1.0.5",
-    "ds-cache": "0.0.2"
+    "ds-cache": "0.0.4"
   }
 }

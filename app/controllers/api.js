@@ -73,6 +73,7 @@ var _getCache  = function(config) {
     var cachePath = config.cachePath;
     var cache = new Cache(
         {
+            limit_bytes: '30M',
             filename : cachePath + "/ds.json",
             auto_save: true
         }
@@ -110,7 +111,6 @@ exports.toSearch = function(req, res, next) {
     var cache = _getCache(config);
 
     var hashid = _generateHashId(req.query);
-
     var resultRow = cache.get(hashid);
     
     if (resultRow){
@@ -141,37 +141,36 @@ exports.toSearch = function(req, res, next) {
 
     console.log('SQL:' + query);
 
-        var params = {
-            'sql': query,
-            'key': API_KEY
+    var params = {
+        'sql': query,
+        'key': API_KEY
+    };
+
+    fusiontables.query.sqlGet(params, function(err, result) {
+        
+        if (err){
+            console.log(err);
+        }
+
+        var rows = result.rows;
+
+        if (!rows) {
+            res.send({});
+        }
+
+        var GeoJsonList = rows.reduce(function(a,b){
+            return a.concat(JSON.parse(b));
+        },[]);
+
+        var GeoJson = {
+            "type": "FeatureCollection",
+            "features": GeoJsonList
         };
 
-        fusiontables.query.sqlGet(params, function(err, result) {
-            
-            if (err){
-                console.log(err);
-            }
-
-            var rows = result.rows;
-  
-            if (!rows) {
-                res.send({});
-            }
-
-            var GeoJsonList = rows.reduce(function(a,b){
-                return a.concat(JSON.parse(b));
-            },[]);
-
-            var GeoJson = {
-                "type": "FeatureCollection",
-                "features": GeoJsonList
-            };
-
         cache.set(hashid, GeoJson);
-            
-            res.send(GeoJson);
-        });
-    }
+        
+        res.send(GeoJson);
+    });
 };
 
 
