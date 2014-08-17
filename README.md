@@ -5,15 +5,28 @@
 ## 安裝
 
 ```shell
-$ npm install -g gulp
-$ npm install
+$ npm i -g gulp
+$ npm i
 ```
 
-## 使用方式
+## 前置作業
+
++ [設定 Google API](https://github.com/dz1984/taipei-pop/wiki/設定-Google-APIs)
+
++ [克隆 Fusion Tables](https://github.com/dz1984/taipei-pop/wiki/克隆-Fusion-Tables)
+
+
+## 開發方式
 
 ```shell
-$ gulp serve
+$ npm start
 ```
+
+TODO : Explain how to create a new API.
+
+## Heroku
+
+TODO : explain how to publish.
 
 ## 授權條款
 
