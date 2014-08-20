@@ -68,13 +68,10 @@
         var maploading = $("#map-loading");
         maploading.addClass('active');
        
-
-        var waitingTime = 5000;
         var block = search.get('Block');
 
         if (block === undefined ||  block === ''){
             block = '中正區';
-            waitingTime = 10000;
         }
 
         var lat = taipei[block].lat;
@@ -90,17 +87,20 @@
           }
         });
 
-        google.maps.event.addListenerOnce(map, 'idle', function(){
-            console.log('initial');
-            setTimeout(function(){
-                maploading.removeClass('active');
-            }, waitingTime);
-        });
-
         var JsonUrl = getAPIUrl(query);
         console.log("JSON URL: " + JsonUrl);
 
-        map.data.loadGeoJson(JsonUrl);
+        $.getJSON(JsonUrl, function(GeoJSON){
+            if (! $.isEmptyObject(GeoJSON)){
+                var features = GeoJSON.features;
+                features.forEach(function(feature){
+                    map.data.addGeoJson(feature);
+                });
+            }
+            
+        }).always(function(){
+            maploading.removeClass('active');
+        });
 
         var featureStyle = {
           fillColor: "red",
@@ -123,12 +123,6 @@
             popinfo.setPosition(event.latLng);
             popinfo.open(map);
         });
-
-        /*
-        setTimeout(function(){
-            maploading.removeClass('active');
-        }, waitingTime);
-        */
     };
 
     var Search = function() {
