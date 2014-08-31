@@ -87,24 +87,24 @@ body {
 	font-size: 2em;
 }
 
-.case-page .case-info {
+.case-info {
 	margin-top: 1em;
 	background-color: #fff;
 	border-radius: 8px;
 }
 
-.case-page .case-info img {
+.case-info img {
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
 	width: 100%;
 }
 
-.case-page .case-info p {
+.case-info p {
 	padding: 18px 10px;
 	text-align: left;
 }
 
-.case-page .case-info p strong {
+.case-info p strong {
 	font-weight: bold;
 	display: block;
 	margin-bottom: 6px;
