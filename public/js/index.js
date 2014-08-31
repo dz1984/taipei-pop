@@ -53,7 +53,7 @@
 
     var API = "/api/search";
 
-    var FIELDS = ['Block','Area','Unit'];
+    var FIELDS = ['Block','Area','Unit','Address'];
 
     var getAPIUrl = function(query){
 
@@ -149,6 +149,10 @@
             }
         });
 
+        if( vars.Address && vars.Block ) {
+            delete query.Block;
+        }
+
         showMap(query);
     };
 
@@ -170,5 +174,22 @@
         });
 
     });
+
+    var jqAddress = $('#input-address'),
+        updateAddressTimer = null,
+        updateAddress = function( e, doUpdate ) {
+
+            if( doUpdate ) {
+                updateAddressTimer = null;
+                search.set( 'Address', jqAddress.val() );
+            } else {
+                clearTimeout( updateAddressTimer );
+                updateAddressTimer = setTimeout( function() {
+                    updateAddress( e, true )
+                }, 10000 );
+            }
+        }
+
+    jqAddress.mousedown( updateAddress );
 
 })();

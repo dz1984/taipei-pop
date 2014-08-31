@@ -10,10 +10,28 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+#pop-icon {
+	background-color: red;
+	color: #fff;
+	font-size: 1.4em;
+	font-weight: bold;
+	border-radius: 6px;
+	padding: 8px;
+}
+
+/* menu */
+.ui.inverted.menu.pop {
+	background-color: #3d3d47;
+}
+
 .text-vertical-center {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
+}
+
+.text-vertical-center.padding {
+	padding: 4em;
 }
 
 .text-vertical-center h1 {
@@ -49,7 +67,47 @@ body {
 }
 
 .header-page {
-    background-color: #D2D7D3;
+    background-color: #e6ddd6;
+}
+
+.case-page {
+    background-color: #e39e54; 
+}
+
+.case-page .column p {
+	text-align: center;
+}
+
+.case-page .column h4 {
+	font-size: 2em;
+	text-align: center;
+}
+
+.case-page .column h4 strong {
+	font-size: 2em;
+}
+
+.case-page .case-info {
+	margin-top: 1em;
+	background-color: #fff;
+	border-radius: 8px;
+}
+
+.case-page .case-info img {
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	width: 100%;
+}
+
+.case-page .case-info p {
+	padding: 18px 10px;
+	text-align: left;
+}
+
+.case-page .case-info p strong {
+	font-weight: bold;
+	display: block;
+	margin-bottom: 6px;
 }
 
 .about-page {
@@ -57,25 +115,56 @@ body {
 }
 
 .area-page {
-     background-color: #65C6BB; 
+    background-color: #e6ddd6;
+}
+
+.area-page .area-param { 
+	padding: 0 4em; 
+} 
+
+.area-page .choice-block { 
+	width: 30%;
+	-moz-box-sizing: border-box; 
+	box-sizing: border-box;
+}
+.area-page .choice-area { 
+	width: 38%;
+	margin: 0 1%;
+	-moz-box-sizing: border-box; 
+	box-sizing: border-box;
+}
+.area-page .choice-unit { 
+	width: 30%;
+	-moz-box-sizing: border-box; 
+	box-sizing: border-box;
+}
+
+.area-page .input-address {
+	width: 100%;
+	margin-top: 6px;
 }
 
 .map-page {
-    background-color: #D2D7D3;
+	background-color: #a39588;
 }
 .request-page {
-     background-color: #F9BF3B;   
+    background-color: #F9BF3B;   
 }
-.choice-area {
-  margin: 30px;
-  width: 200px;
+
+.request-page .request-content li{
+	font-size: 1.4em;
+	line-height: 1.6em;	
+}
+
+.vision-page {
+    background-color: #F9BF3B;   
 }
 #map-canvas {
   height: 100%;
   margin: 0px;
   padding: 0px;
   width: 100%;
-  display: block;
+  display: table;
 }
 
 footer {
