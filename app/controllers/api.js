@@ -14,6 +14,10 @@ var TABLENAME = 'YOUR_FUSION_TABLE_ID';
 
 var SQLSCRIPT = 'SELECT GeoJson FROM ' + TABLENAME;
 
+var GEOCODEAPI_URL = "http://maps.googleapis.com/maps/api/geocode/json?address=";
+
+var RADIUS = 10000;
+
 var FIELDS = 
 {
     'Block': {
@@ -69,6 +73,7 @@ var _generateHashId = function(query) {
 
     return md5.update(query_string).digest('hex');
 };
+
 var _getCache  = function(config) {
     var cachePath = config.cachePath;
     var cache = new Cache(
@@ -80,6 +85,54 @@ var _getCache  = function(config) {
     );
 
     return cache;
+};
+
+var _makeParams = function(conditions){
+    var query = SQLSCRIPT;
+
+    if (conditions.length > 0) {
+        query += ' WHERE ' + conditions.join(' AND ');
+    }
+
+    console.log('SQL:' + query);
+
+    var params = {
+        'sql': query,
+        'key': API_KEY
+    };
+
+    return params;
+
+};
+
+var _sendJson = function(conditions, res, hashid, cache){
+    var params = _makeParams(conditions);
+
+    fusiontables.query.sqlGet(params, function(err, result) {
+        
+        if (err){
+            console.log(err);
+        }
+
+        var rows = result.rows;
+
+        if (!rows) {
+            res.send({});
+        }
+
+        var GeoJsonList = rows.reduce(function(a,b){
+            return a.concat(JSON.parse(b));
+        },[]);
+
+        var GeoJson = {
+            "type": "FeatureCollection",
+            "features": GeoJsonList
+        };
+
+        cache.set(hashid, GeoJson);
+
+        res.send(GeoJson);
+    });
 };
 
 exports.cacheInfo = function(req, res, next) {
@@ -133,44 +186,36 @@ exports.toSearch = function(req, res, next) {
         }
     });
 
-    var query = SQLSCRIPT;
+    // the address condition
+    var address = req.query['Address'];
 
-    if (conditions.length > 0) {
-        query += ' WHERE ' + conditions.join(' AND ');
+    if (address && address !== ''){
+        // the address translate to the location with latitude and longitude 
+        request(
+            {
+                "url": GEOCODEAPI_URL + address,
+                "json": true
+            },
+            function(err, response, body){
+                if (!err) {
+                    var location = body.results[0].geometry.location;
+                    var lat = location.lat;
+                    var lng = location.lng;
+                    
+                    // add the address condition
+                    var addr_condition = "ST_INTERSECTS(Locations,CIRCLE(LATLNG("+ lat + ","+ lng + ")," + RADIUS + "))";
+                    console.log('Address condition: ' + addr_condition);
+                    
+                    conditions.push(addr_condition);
+                }
+
+                _sendJson(conditions, res, hashid, cache);
+            }
+        );
+    } else {
+        // catch data and send Json
+        _sendJson(conditions, res, hashid, cache);
     }
-
-    console.log('SQL:' + query);
-
-    var params = {
-        'sql': query,
-        'key': API_KEY
-    };
-
-    fusiontables.query.sqlGet(params, function(err, result) {
-        
-        if (err){
-            console.log(err);
-        }
-
-        var rows = result.rows;
-
-        if (!rows) {
-            res.send({});
-        }
-
-        var GeoJsonList = rows.reduce(function(a,b){
-            return a.concat(JSON.parse(b));
-        },[]);
-
-        var GeoJson = {
-            "type": "FeatureCollection",
-            "features": GeoJsonList
-        };
-
-        cache.set(hashid, GeoJson);
-        
-        res.send(GeoJson);
-    });
 };
 
 
