@@ -18,6 +18,7 @@ module.exports = {
         dataPath: rootPath + '/data',
         cachePath: rootPath + '/cache',
         viewEngine: 'jade',
+        enableCache: false
     },
 
     test: {
