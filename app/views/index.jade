@@ -14,38 +14,55 @@ block content
               .case-info
                   img(src="images/case.01.jpg")
                   p <strong>台北市大安區信義聯勤俱樂部</strong>
-                    標售給新光人壽再賣給元利建設，蓋兩棟31、35層豪宅
+                    | 標售給新光人壽再賣給元利建設，蓋兩棟31、35層豪宅
           .column
               h4 <strong>3</strong>公頃<br>
               p 至今被劃入都市更新
               .case-info
                   img(src="images/case.02.jpg")
                   p <strong>文萌樓都市更新案</strong>
-                    近698坪公有土地被劃入更新，卻不受國有財產法500坪禁售限制
+                    | 近698坪公有土地被劃入更新，卻不受國有財產法500坪禁售限制
           .column
               h4 <strong>3</strong>公頃<br>
               p 至今被 BOT
               .case-info
                   img(src="images/case.03.jpg")
                   p <strong>遠雄大巨蛋</strong>
-                    BOT 的過程與週邊環境衝擊持續爭議中
+                    | BOT 的過程與週邊環境衝擊持續爭議中
     section#request.request-page.page  
       .text-vertical-center
-          h1 我們的訴求
-          ol.request-content
-              li 修訂公有地處份法令，行政院國土活化督導小組不得閉門決策。
-              li 全民參與公有土地決策過程，防止土地資源被不當使用。
-              li 我國非公用與低度利用的公有土地，其地理資訊必須公佈於網路。
+        h1 我們的訴求
+        .request-content
+          .ui.list
+            .item
+              .content
+                i.comment.icon
+                | 修訂公有地處份法令，行政院國土活化督導小組不得閉門決策。            
+            .item 
+              .content
+                i.comment.icon
+                | 全民參與公有土地決策過程，防止土地資源被不當使用。
+            .item 
+              .content
+                i.comment.icon
+                | 我國非公用與低度利用的公有土地，其地理資訊必須公佈於網路。
+            .item 
+              .content
+                i.comment.icon
+                | 公開公有土地的開發財務細節，公開說明規畫與未來 開發方向。
+            .item 
+              .content
+                i.comment.icon
+                | 設定公有地地上權時間上限，避免財團變相將公有土地私有化。
           .ui.header
             | 邀請您共同關注
-          .circular.ui.icon.button
+          a.circular.ui.icon.button(href="https://www.facebook.com/POPonFire")
             i.icon.unhide
             | 關注
     section#area.area-page.page
       .text-vertical-center
         h1
           | 天龍特公地大搜查 <span class="beta-font">&beta;</span>
-
         .area-param
           .ui.selection.dropdown.choice-block
             .default.text
@@ -102,8 +119,9 @@ block content
                 | 交通部
               a.item(data-value="財政部%")
                 | 財政部
-          .ui.input.focus.input-address
-              input#input-address(placeholder="地址..." type="text")
+          //.ui.input.focus.input-address
+              //input#input-address(placeholder="地址..." type="text")
+
     section#map.map-page.page
       #map-loading.ui.dimmer
         .ui.medium.text.loader
@@ -116,30 +134,59 @@ block content
       .text-vertical-center.padding
         h1
             | 土地好願景
-        .ui.three.column.grid
-          .column
-              .case-info
-                  img(src="http://parklight.tcg.gov.tw/Fuyang/images/fl-0-01.jpg")
-                  p <strong>信義區富陽自然生態公園</strong>
-                    荒野保護協會(圖片來源，台北市公燈處)
-          .column
-              .case-info
+        .ui.three.items
+          .item
+              .image
+                img(src="http://parklight.tcg.gov.tw/Fuyang/images/fl-0-01.jpg")
+              .content
+                  p.name 信義區富陽自然生態公園
+                  p.description
+                    | 從廢棄的國軍兵工廠用地，變成台北樹蛙安心棲息的生態公園。
+                  .extra
+                    .ui.divided.horizontal.list
+                      .item 認養單位：荒野保護協會
+                      .item 圖片來源：台北市公燈處
+          .item
+              .image
                   img(src="images/case.04.jpg")
-                  p <strong>松山區幸福農場</strong>
-                    復健里里辦公處
-          .column
-              .case-info
+              .content
+                  p.name 松山區幸福農場
+                  p.description
+                    | 國防部閒置用地，變成168個家庭實現城市農耕夢的幸福農場。
+                  .extra
+                    .ui.divided.horizontal.list
+                      .item 經營單位：復健里里辦公處
+          .item
+              .image
                   img(src="https://scontent-a.xx.fbcdn.net/hphotos-xfa1/t1.0-9/p480x480/10552658_326782487498419_5093993076732433938_n.jpg")
-                  p <strong>萬華區南機場樂活園地</strong>
-                    忠勤里里辦公處(圖片來源，SUN SELF HOTEL Nanjichang
-                    太陽自創旅館南機場 facebook)
-          .column
-              .case-info
+              .content
+                  p.name 萬華區南機場樂活園地
+                  p.description 
+                    | 閒置的公有建築物，變成社區共餐廚房與樂齡活動中心。
+                  .extra
+                    .ui.divided.horizontal.list
+                      .item 經營單位：忠勤里里辦公處
+                      .item 圖片來源：SUN SELF HOTEL Nanjichang 太陽自創旅館南機場
+          .item
+              .image
                   img(src="http://static.ettoday.net/images/309/309597.jpg")
-                  p <strong>松山區寶清段社會住宅</strong>
-                    社會住宅推動聯盟(圖片來源，台北市都市發展局)
-          .column
-              .case-info
+              .content
+                  p.name 松山區寶清段社會住宅
+                  p.description 
+                    | 公有土地興建只租不賣的社會住宅，增加城市的公共住宅數量。
+                  .extra                
+                    .ui.divided.horizontal.list
+                      .item 議題推動單位：社會住宅推動聯盟
+                      .item 圖片來源：台北市都市發展局
+          .item
+              .image
                   img(src="https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-xfp1/t1.0-9/p480x480/10339679_249682165234858_7142478842126817407_n.jpg")
-                  p <strong>中山區 FutureWard 未來產房</strong>
-                    FutureWard 未來產房(圖片來源，FutureWard 未來產房 facebook)
+              .content
+                  p.name 中山區 FutureWard 未來產房
+                  p.description
+                    | 既有的校園公共空間，變成城市創新與青年創業的社群空間。
+                  .extra
+                    .ui.divided.horizontal.list
+                      .item 經營單位：FutureWard 未來產房 
+                      .item 圖片來源：FutureWard 未來產房
+

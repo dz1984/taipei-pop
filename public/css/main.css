@@ -9,6 +9,9 @@ body {
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
+.logo-header {
+    font-weight: bold;
+}
 
 #pop-icon {
 	background-color: red;
@@ -150,10 +153,14 @@ body {
 .request-page {
     background-color: #F9BF3B;   
 }
-
-.request-page .request-content li{
+.request-content {
+    margin: 0px auto;
+    width: 36%;
+}
+.request-page .request-content .item{
 	font-size: 1.4em;
 	line-height: 1.6em;	
+    text-align: justify;
 }
 
 .vision-page {
