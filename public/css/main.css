@@ -160,12 +160,13 @@ body {
 .request-page .request-content .item{
 	font-size: 1.4em;
 	line-height: 1.6em;	
-    text-align: justify;
+    text-align: left;
 }
 
 .vision-page {
     background-color: #F9BF3B;   
 }
+
 #map-canvas {
   height: 100%;
   margin: 0px;
