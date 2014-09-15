@@ -19,6 +19,7 @@
     "gulp-nodemon": "~1.0.4",
     "gulp-jshint": "^1.7.1",
     "googleapis": "~1.0.5",
-    "ds-cache": "0.0.4"
+    "ds-cache": "0.0.4",
+    "request": "^2.40.0"
   }
 }
