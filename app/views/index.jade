@@ -10,21 +10,21 @@ block content
         .ui.three.column.grid
           .column
               h4 <strong>62</strong>公頃<br>
-              p 台北市十年間賣掉
+              p 台北市十年間(2001~2010)賣掉
               .case-info
                   img(src="images/case.01.jpg")
                   p <strong>台北市大安區信義聯勤俱樂部</strong>
                     | 標售給新光人壽再賣給元利建設，蓋兩棟31、35層豪宅
           .column
               h4 <strong>3</strong>公頃<br>
-              p 至今被劃入都市更新
+              p 至今被劃入都市更新所開發，目前還有許多已被劃入都市更新單元中
               .case-info
                   img(src="images/case.02.jpg")
                   p <strong>文萌樓都市更新案</strong>
                     | 近698坪公有土地被劃入更新，卻不受國有財產法500坪禁售限制
           .column
               h4 <strong>3</strong>公頃<br>
-              p 至今被 BOT
+              p 至今被 BOT 所開發成功，目前還有許多正在促參程序中
               .case-info
                   img(src="images/case.03.jpg")
                   p <strong>遠雄大巨蛋</strong>
@@ -62,7 +62,8 @@ block content
     section#area.area-page.page
       .text-vertical-center
         h1
-          | 天龍特公地大搜查 <span class="beta-font">&beta;</span>
+          | 天龍特公地大搜查 <span class="beta-font">&beta;</span>      
+   
         .area-param
           .ui.selection.dropdown.choice-block
             .default.text
@@ -103,11 +104,11 @@ block content
               a.item(data-value='')
                 | 全部          
               a.item(data-value=">=500")
-                | 500以上
+                | 500坪(1650平方公尺)以上
               a.item(data-value=">20 AND <500")
-                | 20 ~ 500
+                | 20坪 ~ 500坪
               a.item(data-value="<=20")
-                | 20以下
+                | 20坪以下
           .ui.selection.dropdown.choice-unit
             .default.text
               | 經營單位
@@ -121,7 +122,8 @@ block content
                 | 財政部
           //.ui.input.focus.input-address
               //input#input-address(placeholder="地址..." type="text")
-
+        h3
+            i.data-description.info.link.icon(data-title="資料特性說明",data-content="1. 公有土地<br/>2. 位在可建築分區<br/>3. 該土地無建築物登記，例如預計開發的空軍總部舊址有建築物登記，就未顯示於本次資料<br/>4. 土地面積單位為平方公尺<br/>5. 國有財產法 53 條明訂 500坪 (1650平方公尺) 以上非公用公有土地禁止標售",data-variation="large")
     section#map.map-page.page
       #map-loading.ui.dimmer
         .ui.medium.text.loader
