@@ -170,6 +170,13 @@ body {
     text-align: left;
 }
 
+.data-description {
+  color: #DB0A5B;
+  font-style: italic;
+  font-size: 0.1em;
+  vertical-align: text-bottom;
+}
+
 .vision-page {
     background-color: #89C4F4;   
 }

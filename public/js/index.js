@@ -114,7 +114,11 @@
             var content = "<table class='ui table segment'>";
 
             properties.forEach(function(element, index, array) {
-                content += "<tr><td>" + element + "</td><td>" + event.feature.getProperty(element) + "</td></tr>";
+                var property = event.feature.getProperty(element);
+                if (element === "面積"){
+                  property += " 平方公尺";  
+                }
+                content += "<tr><td>" + element + "</td><td>" + property + "</td></tr>";
             });
 
             content += "</table>";
@@ -162,6 +166,10 @@
       onChange: function(val) {
         $(".map-notice").hide();
       }
+    });
+
+    $(".data-description").popup({
+        on: 'click'
     });
 
     FIELDS.forEach(function(field){
