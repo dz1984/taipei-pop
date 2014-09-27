@@ -164,7 +164,8 @@
 
     $(".dropdown").dropdown({
       onChange: function(val) {
-        $(".map-notice").hide();
+        $(".map-notice").remove();
+        $("#map-canvas").css('display','table-row');
       }
     });
 
