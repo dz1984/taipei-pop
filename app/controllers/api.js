@@ -11,7 +11,7 @@ var fusiontables = google.fusiontables('v1');
 var API_KEY = 'YOUR_GOOGLE_API_KEY';
 var TABLENAME = 'YOUR_FUSION_TABLE_ID';
 
-var SQLSCRIPT = 'SELECT GeoJson FROM ' + TABLENAME;
+var SQLSCRIPT = 'SELECT GeoJson, RenewStatus, RenewId FROM ' + TABLENAME;
 
 var GEOCODEAPI_URL = "http://maps.googleapis.com/maps/api/geocode/json?address=";
 
@@ -112,6 +112,7 @@ var _makeParams = function(conditions){
 var _sendJson = function(conditions, res, hashid, cache){
     var params = _makeParams(conditions);
 
+
     fusiontables.query.sqlGet(params, function(err, result) {
         
         if (err){
@@ -127,7 +128,14 @@ var _sendJson = function(conditions, res, hashid, cache){
         }
 
         var GeoJsonList = rows.reduce(function(a,b){
-            return a.concat(JSON.parse(b));
+            var geojson = b[0];
+            var stat = b[1];
+            var caseid = b[2];
+
+            var parsed = JSON.parse(geojson);
+            parsed['properties']['都更狀態'] = stat;
+            parsed['properties']['都更案件編號'] = caseid;
+            return a.concat(parsed);
         },[]);
 
         var GeoJson = {

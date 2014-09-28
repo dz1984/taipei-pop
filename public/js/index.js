@@ -102,12 +102,19 @@
             maploading.removeClass('active');
         });
 
-        var featureStyle = {
-          fillColor: "red",
-          strokeWeight: 1
-        };
 
-        map.data.setStyle(featureStyle);
+
+        map.data.setStyle( function(feature){
+            var renew_stat = feature.getProperty("都更狀態");
+            var color = 'red';
+            if(renew_stat.length == 0){
+                color = 'yellow';
+            }
+            return {
+                fillColor: color,
+                strokeWeight: 1
+            };
+        });
 
         map.data.addListener("click", function(event) {
             var properties = ["面積", "路段", "地號", "管理者", "使用分區"];
@@ -120,7 +127,11 @@
                 }
                 content += "<tr><td>" + element + "</td><td>" + property + "</td></tr>";
             });
-
+            //for urban-renew information
+            var caseid = event.feature.getProperty("都更案件編號");
+            var caseurl = "http://www.gis.udd.taipei.gov.tw/ua_frmEasyCase.aspx?case_code="+caseid;
+            content += "<tr><td>都更狀態</td>";
+            content += "<td><a href="+caseurl+">"+ event.feature.getProperty("都更狀態") + "</a></td></tr>";
             content += "</table>";
             popinfo.close();
             popinfo.setContent(content);
