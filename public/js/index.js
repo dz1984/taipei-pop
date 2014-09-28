@@ -103,13 +103,6 @@
         });
 
 
-        var getRenewDetailUrl = function(caseid){
-            if(caseid.indexOf('R') > -1){
-                return "http://www.gis.udd.taipei.gov.tw/ua_frmEasyCase.aspx?case_code="+caseid;
-            }else{
-                return "http://www.gis.udd.taipei.gov.tw/r_progress.aspx?case_id="+caseid;
-            }
-        }
 
         map.data.setStyle( function(feature){
             var renew_stat = feature.getProperty("都更狀態");
@@ -133,7 +126,7 @@
             });
             //for urban-renew information
             var caseid = event.feature.getProperty("都更案件編號");
-            var caseurl = getRenewDetailUrl(caseid);
+            var caseurl = "http://www.gis.udd.taipei.gov.tw/ua_frmEasyCase.aspx?case_code="+caseid;
             content += "<tr><td>都更狀態</td>";
             content += "<td><a href="+caseurl+">"+ event.feature.getProperty("都更狀態") + "</a></td></tr>";
             content += "</table>";
