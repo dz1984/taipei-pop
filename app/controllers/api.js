@@ -9,10 +9,10 @@ var OAuth2 = google.auth.OAuth2;
 var fusiontables = google.fusiontables('v1');
 
 var API_KEY = 'AIzaSyDoiTO_F18qgck4SQ8N6qi6Dy0wVsfb7aA';
-var TABLENAME = '1IaCfXQFZgByHEIqXuEYMZcMW4cFSGqbszbwLufqg';
+var TABLENAME = '1Gt4nCDvJ79AUw50qgo6myz6qI-m5b-T5p4wrtJSS';
 
 //var SQLSCRIPT = 'SELECT GeoJson FROM ' + TABLENAME;
-var SQLSCRIPT = 'SELECT GeoJson, RenewStatus, RenewId FROM ' + TABLENAME;
+var SQLSCRIPT = 'SELECT GeoJson, RenewStatus, RenewDetail FROM ' + TABLENAME;
 
 var GEOCODEAPI_URL = "http://maps.googleapis.com/maps/api/geocode/json?address=";
 
@@ -131,11 +131,10 @@ var _sendJson = function(conditions, res, hashid, cache){
         var GeoJsonList = rows.reduce(function(a,b){
             var geojson = b[0];
             var stat = b[1];
-            var caseid = b[2];
-
+            var caseurl = b[2];
             var parsed = JSON.parse(geojson);
-            parsed['properties']['都更狀態'] = stat;
-            parsed['properties']['都更案件編號'] = caseid;
+            parsed['properties']['都更狀態']=stat;
+            parsed['properties']['caseurl']=caseurl;
             return a.concat(parsed);
         },[]);
 

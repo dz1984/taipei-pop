@@ -125,10 +125,9 @@
                 content += "<tr><td>" + element + "</td><td>" + event.feature.getProperty(element) + "</td></tr>";
             });
             //for urban-renew information
-            var caseid = event.feature.getProperty("都更案件編號");
-            var caseurl = "http://www.gis.udd.taipei.gov.tw/ua_frmEasyCase.aspx?case_code="+caseid;
+            var caseurl = event.feature.getProperty("caseurl");
             content += "<tr><td>都更狀態</td>";
-            content += "<td><a href="+caseurl+">"+ event.feature.getProperty("都更狀態") + "</a></td></tr>";
+            content += "<td><a href="+caseurl+" target='_blank'>"+ event.feature.getProperty("都更狀態") + "</a></td></tr>";
             content += "</table>";
             popinfo.close();
             popinfo.setContent(content);
