@@ -107,7 +107,7 @@
         map.data.setStyle( function(feature){
             var renew_stat = feature.getProperty("都更狀態");
             var color = 'red';
-            if(renew_stat.length == 0){
+            if(!renew_stat || renew_stat.length == 0){
                 color = 'yellow';
             }
             return {
