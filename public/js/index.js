@@ -131,6 +131,7 @@
             var caseurl = event.feature.getProperty("caseurl");
             content += "<tr><td>都更狀態</td>";
             content += "<td><a href="+caseurl+" target='_blank'>"+ event.feature.getProperty("都更狀態") + "</a></td></tr>";
+            content += "<td><form action='/image/upload' method='post' enctype='multipart/form-data'><input type='file' name='image'/><button type='submit'>上傳</button></form></td>";
             content += "</table>";
             popinfo.close();
             popinfo.setContent(content);

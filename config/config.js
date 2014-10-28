@@ -16,6 +16,8 @@ module.exports = {
         viewPath: rootPath + '/app/views',
         staticPath: rootPath + '/public',
         dataPath: rootPath + '/data',
+        uploadPath: rootPath + '/upload',
+        imagePath: rootPath + '/upload/images',
         cachePath: rootPath + '/cache',
         viewEngine: 'jade',
         enableCache: false
