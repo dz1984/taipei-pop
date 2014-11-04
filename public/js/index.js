@@ -107,7 +107,7 @@
         map.data.setStyle( function(feature){
             var renew_stat = feature.getProperty("都更狀態");
             var color = 'red';
-            if(renew_stat.length == 0){
+            if(!renew_stat || renew_stat.length == 0){
                 color = 'yellow';
             }
             return {
@@ -128,14 +128,42 @@
                 content += "<tr><td>" + element + "</td><td>" + property + "</td></tr>";
             });
             //for urban-renew information
+            var id = event.feature.getProperty('id');
             var caseurl = event.feature.getProperty("caseurl");
+            var upload_image = event.feature.getProperty('upload_image');
+            var image_tpl = '';
+            
+            if (upload_image != null) {
+                var image_url = '/u/images/' + $.trim(upload_image);
+                image_tpl = "<a href='" + image_url + "' target='_blank'><img src='"+ image_url +"' width='50px' /></a>";
+            }
+
             content += "<tr><td>都更狀態</td>";
             content += "<td><a href="+caseurl+" target='_blank'>"+ event.feature.getProperty("都更狀態") + "</a></td></tr>";
+            content += "<tr><td>圖片：</td>";
+            content += "<td>"+ image_tpl + "</td></tr>";
+            content += "<tr><td>提供圖片</td><td><form id='upload_form' action='/image/upload' method='post' enctype='multipart/form-data'>";
+            content += "<input type='hidden' name='id' value='"+ id + "' />";
+            content += "<input type='file' name='image'/><button type='submit' id='img_upload'>上傳</button>";
+            content += "</form></td></tr>";
             content += "</table>";
             popinfo.close();
             popinfo.setContent(content);
             popinfo.setPosition(event.latLng);
             popinfo.open(map);
+
+            $('#upload_form').on('submit', function() {
+                
+                $(this).ajaxSubmit({
+                    success: function(response){
+                        console.log('success');
+                    },
+                    error: function(response) {
+                        console.log('error');
+                    }
+                });
+                return false;
+            });
         });
     };
 
