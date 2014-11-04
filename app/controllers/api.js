@@ -4,7 +4,7 @@ var pg = require('pg');
 var crypto = require("crypto");
 var request = require("request");
 
-var SQLSCRIPT = 'SELECT geo_json, renew_status, renew_detail FROM taipei_pop' ;
+var SQLSCRIPT = 'SELECT geo_json, renew_status, renew_detail, id, upload_image FROM taipei_pop' ;
 
 var GEOCODEAPI_URL = "http://maps.googleapis.com/maps/api/geocode/json?address=";
 
@@ -100,13 +100,13 @@ var _sendJson = function(conditions, res){
 
             var GeoJsonList = rows.reduce(function(a,b){
                 var geojson = b.geo_json;
-                var stat = b.renew_status;
-                var caseurl = b.renew_detail;
-                var parsed = geojson;
+        
+                geojson['properties']['都更狀態'] = b.renew_status;
+                geojson['properties']['caseurl'] = b.renew_detail;
+                geojson['properties']['id'] = b.id;
+                geojson['properties']['upload_image'] = b.upload_image;
 
-                parsed['properties']['都更狀態']=stat;
-                parsed['properties']['caseurl']=caseurl;
-                return a.concat(parsed);
+                return a.concat(geojson);
             },[]);
 
             var GeoJson = {
