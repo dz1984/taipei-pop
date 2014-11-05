@@ -16,12 +16,7 @@ exports.upload = function(req, res, next) {
 
     fs.readFile(tempPath, function(err, data){
         var filePath = config.imagePath + '/' + fileName;
-        fs.writeFile(filePath, data, function(err){
-            if (err) {
-                console.log('could not upload the image', err);
-            }
-
-        });
+        fs.writeFile(filePath, data);
 
         // update the record
         var client = new pg.Client(PG_CONNECT_STRING);
@@ -43,8 +38,8 @@ exports.upload = function(req, res, next) {
             });
         });
 
+        res.send({status: 1, filenames: fileName});
     });
-    res.send(200);
 };
 
 exports.handle = function (req, res, next) {
