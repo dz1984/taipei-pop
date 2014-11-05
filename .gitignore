@@ -1,4 +1,5 @@
 cache/ds.json
+upload/*
 node_modules/*
 
 
