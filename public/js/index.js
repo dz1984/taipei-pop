@@ -141,7 +141,7 @@
             content += "<tr><td>都更狀態</td>";
             content += "<td><a href="+caseurl+" target='_blank'>"+ event.feature.getProperty("都更狀態") + "</a></td></tr>";
             content += "<tr><td>圖片：</td>";
-            content += "<td>"+ image_tpl + "</td></tr>";
+            content += "<td class='js_upload_image'>"+ image_tpl + "</td></tr>";
             content += "<tr><td>提供圖片</td><td><form id='upload_form' action='/image/upload' method='post' enctype='multipart/form-data'>";
             content += "<input type='hidden' name='id' value='"+ id + "' />";
             content += "<input type='file' name='image'/><button type='submit' id='img_upload'>上傳</button>";
@@ -156,7 +156,13 @@
                 
                 $(this).ajaxSubmit({
                     success: function(response){
-                        console.log('success');
+                        if (response.status) {
+                            var img_url = '/u/images/' + response.filenames;
+                            var img = $('<img>').attr('src', img_url).attr('width','50px');
+                            $('.js_upload_image').append(img);
+
+                            event.feature.setProperty('upload_image', response.filenames);
+                        }
                     },
                     error: function(response) {
                         console.log('error');
