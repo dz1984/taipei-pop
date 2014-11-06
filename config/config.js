@@ -15,6 +15,7 @@ module.exports = {
         root: rootPath,
         viewPath: rootPath + '/app/views',
         staticPath: rootPath + '/public',
+        dataPath: rootPath + '/data',
         uploadPath: rootPath + '/upload',
         imagePath: rootPath + '/upload/images',
         cachePath: rootPath + '/cache',

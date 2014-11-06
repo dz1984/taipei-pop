@@ -46,3 +46,30 @@ exports.handle = function (req, res, next) {
     var config = req.app.get('envConfig');
     fs.createReadStream(config.imagePath + '/' + req.params.filename).pipe(res);
 };
+
+exports.exposure = function(req, res, next) {
+    var config = req.app.get('envConfig');
+
+    var id = req.query.id;
+    
+    var client = new pg.Client(PG_CONNECT_STRING);
+    var sqlscript = "INSERT INTO exposure_log (pop_id, create_at) VALUES ('"+ id + "', NOW())";
+
+    console.log(sqlscript);
+
+    client.connect(function(err){
+        if (err) {
+            return console.error('could not connect to postgres', err);    
+        }
+
+        client.query(sqlscript, function(err, result){ 
+            if (err) {
+                console.log('error running query', err);
+                return;
+            }                
+            client.end();
+        });
+    });
+
+    fs.createReadStream(config.dataPath + '/exposure.png').pipe(res);
+};
