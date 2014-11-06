@@ -132,6 +132,7 @@
             var caseurl = $.trim(event.feature.getProperty("caseurl"));
             var status = $.trim(event.feature.getProperty("都更狀態"));
             var upload_image = $.trim(event.feature.getProperty('upload_image'));
+            
             var image_tpl = '';
             var renew_tpl = '';
             
@@ -140,9 +141,11 @@
             }
 
             if (upload_image != '') {
-                var image_url = '/u/images/' + upload_image;
-                image_tpl = "<a href='" + image_url + "' target='_blank'><img src='"+ image_url +"' width='50px' /></a>";
+                var image_url = EXTERNAL_URL + '/u/images/' + upload_image;
+                image_tpl = "<a class='js_image ui medium image' href='" + image_url + "' target='_blank'><img src='"+ image_url +"' width='50px' /></a>";
+                image_tpl += "<div class='ui modal js_modal'><i class='close icon'></i><div class='content ui center aligned segment'><img src='"+ image_url +"' /></div></div>"
             }
+
 
             content += "<tr><td>都更狀態</td><td>"+ renew_tpl +"</td></tr>";
             content += "<tr><td>圖片：</td><td class='js_upload_image'>"+ image_tpl + "</td></tr>";
@@ -152,10 +155,22 @@
             content += "<img src='/image/exposure?id="+ id +"' width='0px'/>";
             content += "</form></td></tr>";
             content += "</table>";
+            
             popinfo.close();
             popinfo.setContent(content);
             popinfo.setPosition(event.latLng);
             popinfo.open(map);
+
+            var jqImage = $('.js_image');
+            var jqModal = jqImage.siblings('div.js_modal');
+
+            jqImage.on('click', function(event){
+                event.preventDefault();
+
+                jqModal.modal('show');
+ 
+                return false;
+            });
 
             $('#upload_form').on('submit', function() {
                 
