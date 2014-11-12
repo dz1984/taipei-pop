@@ -101,10 +101,10 @@ var _sendJson = function(conditions, res){
             var GeoJsonList = rows.reduce(function(a,b){
                 var geojson = b.geo_json;
         
-                geojson['properties']['都更狀態'] = b.renew_status;
-                geojson['properties']['caseurl'] = b.renew_detail;
-                geojson['properties']['id'] = b.id;
-                geojson['properties']['upload_image'] = b.upload_image;
+                geojson.properties['都更狀態'] = b.renew_status;
+                geojson.properties.caseurl = b.renew_detail;
+                geojson.properties.id = b.id;
+                geojson.properties.upload_image = b.upload_image;
 
                 return a.concat(geojson);
             },[]);
@@ -131,7 +131,7 @@ exports.toSearch = function(req, res, next) {
     var conditions = [];
 
     // the address condition
-    var address = req.query['Address'];
+    var address = req.query.Address;
 
     console.log('Query String: ' + JSON.stringify(req.query));
 

@@ -107,7 +107,7 @@
         map.data.setStyle( function(feature){
             var renew_stat = feature.getProperty("都更狀態");
             var color = 'red';
-            if(!renew_stat || renew_stat.length == 0){
+            if(!renew_stat || renew_stat.length === 0){
                 color = 'yellow';
             }
             return {
@@ -136,14 +136,14 @@
             var image_tpl = '';
             var renew_tpl = '';
             
-            if (status != '') {
+            if (status !== '') {
                 renew_tpl = "<a href="+caseurl+" target='_blank'>"+ status + "</a>";
             }
 
-            if (upload_image != '') {
+            if (upload_image !== '') {
                 var image_url = EXTERNAL_URL + '/u/images/' + upload_image;
                 image_tpl = "<a class='js_image ui medium image' href='" + image_url + "' target='_blank'><img src='"+ image_url +"' width='50px' /></a>";
-                image_tpl += "<div class='ui modal js_modal'><i class='close icon'></i><div class='content ui center aligned segment'><img src='"+ image_url +"' /></div></div>"
+                image_tpl += "<div class='ui modal js_modal'><i class='close icon'></i><div class='content ui center aligned segment'><img src='"+ image_url +"' /></div></div>";
             }
 
 
@@ -258,10 +258,10 @@
             } else {
                 clearTimeout( updateAddressTimer );
                 updateAddressTimer = setTimeout( function() {
-                    updateAddress( e, true )
+                    updateAddress( e, true );
                 }, 10000 );
             }
-        }
+        };
 
     jqAddress.mousedown( updateAddress );
 
