@@ -141,7 +141,7 @@
             }
 
             if (upload_image !== '') {
-                var image_url = EXTERNAL_URL + '/u/images/' + upload_image;
+                var image_url = '/u/images/' + upload_image;
                 image_tpl = "<a class='js_image ui medium image' href='" + image_url + "' target='_blank'><img src='"+ image_url +"' width='50px' /></a>";
                 image_tpl += "<div class='ui modal js_modal'><i class='close icon'></i><div class='content ui center aligned segment'><img src='"+ image_url +"' /></div></div>";
             }

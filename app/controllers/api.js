@@ -10,8 +10,6 @@ var GEOCODEAPI_URL = "http://maps.googleapis.com/maps/api/geocode/json?address="
 
 var RADIUS = 1000;
 
-var PG_CONNECT_STRING = "postgres://PG_USER:PG_PWD@127.0.0.1/PG_DB";
-
 var FIELDS = 
 {
     'Block': {
@@ -75,10 +73,12 @@ var _makeSQLScript = function(conditions){
     return query;
 };
 
-var _sendJson = function(conditions, res){
+var _sendJson = function(conditions, req, res){
+    var config = req.app.get('envConfig');
+
     var sqlscript= _makeSQLScript(conditions);
 
-    var client = new pg.Client(PG_CONNECT_STRING);
+    var client = new pg.Client(config.dbConnStr);
 
     client.connect(function(err){
         if (err) {
@@ -167,12 +167,12 @@ exports.toSearch = function(req, res, next) {
                     
                     conditions.push(addr_condition);
                 }
-                _sendJson(conditions, res);
+                _sendJson(conditions, req, res);
             }
         );
     } else {
         // catch data and send Json
-        _sendJson(conditions, res);
+        _sendJson(conditions, req, res);
     }
 };
 

@@ -4,8 +4,6 @@ var path = require('path');
 var fs = require('fs');
 var pg = require('pg');
 
-var PG_CONNECT_STRING = "postgres://PG_USER:PG_PWD@127.0.0.1/PG_DB";
-
 exports.upload = function(req, res, next) {
     var tempPath = req.files.image.path;
     var extName = path.extname(req.files.image.name);
@@ -19,7 +17,7 @@ exports.upload = function(req, res, next) {
         fs.writeFile(filePath, data);
 
         // update the record
-        var client = new pg.Client(PG_CONNECT_STRING);
+        var client = new pg.Client(config.dbConnStr);
         var sqlscript = "UPDATE taipei_pop SET upload_image = '" + fileName + "' WHERE id ='" + id + "'";
 
         console.log(sqlscript);
@@ -52,7 +50,7 @@ exports.exposure = function(req, res, next) {
 
     var id = req.query.id;
     
-    var client = new pg.Client(PG_CONNECT_STRING);
+    var client = new pg.Client(config.dbConnStr);
     var sqlscript = "INSERT INTO exposure_log (pop_id, create_at) VALUES ('"+ id + "', NOW())";
 
     console.log(sqlscript);
