@@ -112,8 +112,17 @@
             }
             return {
                 fillColor: color,
-                strokeWeight: 1
+                strokeWeight: 1,
+                fillOpacity: 0.2
             };
+        });
+
+        map.data.addListener('mouseover', function(event){
+            this.overrideStyle(event.feature, {strokeWeight: 2, fillOpacity: 1});
+        });
+
+        map.data.addListener('mouseout', function(event){
+            this.overrideStyle(event.feature, {strokeWeight: 1, fillOpacity: 0.2});
         });
 
         map.data.addListener("click", function(event) {
