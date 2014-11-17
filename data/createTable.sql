@@ -15,3 +15,9 @@ CREATE TABLE taipei_pop
   renew_detail text,
   upload_image character(50)
 );
+
+CREATE TABLE exposure_log
+(
+  pop_id character(40),
+  create_at timestamp without time zone
+);
