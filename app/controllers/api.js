@@ -21,7 +21,7 @@ var FIELDS =
         'isStr': false
     },
     'Unit': {
-        'symbol': ' LIKE ',
+        'symbol': ' SIMILAR TO ',
         'isStr': true
     }
 };
