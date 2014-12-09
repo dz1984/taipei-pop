@@ -117,6 +117,28 @@
             };
         });
 
+        map.data.addListener('addfeature', function(event){
+            var upload_image = $.trim(event.feature.getProperty('upload_image'));
+            
+            if (upload_image === '') {
+                return;
+            }
+
+            var lat = Number(event.feature.getProperty('ycenter'));
+            var lng = Number(event.feature.getProperty('xcenter'));
+            var latLng = new google.maps.LatLng(lat,lng);
+
+            var marker = new google.maps.Marker({
+                position: latLng,
+                map: map,
+                icon: { 
+                    url: 'images/camera-icon.png',
+                    scaledSize: new google.maps.Size(15,15)
+
+                },
+            });
+        });
+
         map.data.addListener('mouseover', function(event){
             this.overrideStyle(event.feature, {strokeWeight: 2, fillOpacity: 1});
         });
