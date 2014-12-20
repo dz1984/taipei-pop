@@ -1,4 +1,4 @@
 cache/ds.json
 node_modules/*
-
+*.DS_Store
 
