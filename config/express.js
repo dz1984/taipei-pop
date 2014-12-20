@@ -13,7 +13,7 @@ module.exports = function(app,config){
 
     var useConfigs = [
         express.favicon(),
-        express.logger('dev'),
+        express.logger(),
         express.cookieParser(),
         express.bodyParser(),
         express.compress()

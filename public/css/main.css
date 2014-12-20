@@ -9,6 +9,7 @@ body {
 body {
     font-family: Arial, Helvetica, sans-serif;
 }
+
 .logo-header {
     font-weight: bold;
 }
@@ -57,6 +58,7 @@ body {
   font-size: 0.2em;
   vertical-align: text-top;
 }
+
 .page {
     display: table;
     position: relative;
@@ -130,12 +132,14 @@ body {
 	-moz-box-sizing: border-box; 
 	box-sizing: border-box;
 }
+
 .area-page .choice-area { 
 	width: 38%;
 	margin: 0 1%;
 	-moz-box-sizing: border-box; 
 	box-sizing: border-box;
 }
+
 .area-page .choice-unit { 
 	width: 30%;
 	-moz-box-sizing: border-box; 
@@ -150,21 +154,35 @@ body {
 .map-page {
 	background-color: #a39588;
 }
+
 .request-page {
     background-color: #F9BF3B;   
 }
+
 .request-content {
     margin: 0px auto;
-    width: 36%;
+    width: 48%;
 }
+
 .request-page .request-content .item{
 	font-size: 1.4em;
 	line-height: 1.6em;	
     text-align: left;
 }
 
+.data-description {
+  color: #DB0A5B;
+  font-style: italic;
+  font-size: 0.1em;
+  vertical-align: text-bottom;
+}
+
 .vision-page {
-    background-color: #F9BF3B;   
+    background-color: #89C4F4;   
+}
+
+.vision-page .item .description {
+    text-align: left;
 }
 
 #map-canvas {
@@ -172,7 +190,6 @@ body {
   margin: 0px;
   padding: 0px;
   width: 100%;
-  display: table;
 }
 
 footer {

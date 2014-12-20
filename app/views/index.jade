@@ -10,21 +10,21 @@ block content
         .ui.three.column.grid
           .column
               h4 <strong>62</strong>公頃<br>
-              p 台北市十年間賣掉
+              p 台北市十年間(2001~2010)賣掉
               .case-info
                   img(src="images/case.01.jpg")
                   p <strong>台北市大安區信義聯勤俱樂部</strong>
                     | 標售給新光人壽再賣給元利建設，蓋兩棟31、35層豪宅
           .column
               h4 <strong>3</strong>公頃<br>
-              p 至今被劃入都市更新
+              p 至今被劃入都市更新所開發，目前還有許多已被劃入都市更新單元中
               .case-info
                   img(src="images/case.02.jpg")
                   p <strong>文萌樓都市更新案</strong>
                     | 近698坪公有土地被劃入更新，卻不受國有財產法500坪禁售限制
           .column
               h4 <strong>3</strong>公頃<br>
-              p 至今被 BOT
+              p 至今被 BOT 所開發成功，目前還有許多正在促參程序中
               .case-info
                   img(src="images/case.03.jpg")
                   p <strong>遠雄大巨蛋</strong>
@@ -62,7 +62,8 @@ block content
     section#area.area-page.page
       .text-vertical-center
         h1
-          | 天龍特公地大搜查 <span class="beta-font">&beta;</span>
+          | 天龍特公地大搜查 <span class="beta-font">&beta;</span>      
+   
         .area-param
           .ui.selection.dropdown.choice-block
             .default.text
@@ -103,11 +104,11 @@ block content
               a.item(data-value='')
                 | 全部          
               a.item(data-value=">=500")
-                | 500以上
+                | 500坪(1650平方公尺)以上
               a.item(data-value=">20 AND <500")
-                | 20 ~ 500
+                | 20坪 ~ 500坪
               a.item(data-value="<=20")
-                | 20以下
+                | 20坪以下
           .ui.selection.dropdown.choice-unit
             .default.text
               | 經營單位
@@ -119,9 +120,20 @@ block content
                 | 交通部
               a.item(data-value="財政部%")
                 | 財政部
+              a.item(data-value="國防部%")
+                | 國防部 
+              a.item(data-value="內政部%")
+                | 內政部
+              a.item(data-value="教育部%")
+                | 教育部
+              a.item(data-value="(臺|台)北市%")
+                | 臺北市      
+              a.item(data-value="%學%")
+                | 學校單位  
           //.ui.input.focus.input-address
               //input#input-address(placeholder="地址..." type="text")
-
+        h3
+            i.data-description.info.link.icon(data-title="資料特性說明",data-content="1. 公有土地。<br/>2. 位在可建築分區。<br/>3. 該土地無建築物登記，例如預計開發的空軍總部舊址有建築物登記，就未顯示於本次資料。<br/>4. 土地面積單位為平方公尺。<br/>5. 國有財產法 53 條明訂 500坪 (1650平方公尺) 以上非公用公有土地禁止標售。<br/>6. 正在進行「都市更新」的公有土地，特別以「紅色」表示。",data-variation="large")
     section#map.map-page.page
       #map-loading.ui.dimmer
         .ui.medium.text.loader
@@ -137,7 +149,7 @@ block content
         .ui.three.items
           .item
               .image
-                img(src="http://parklight.tcg.gov.tw/Fuyang/images/fl-0-01.jpg")
+                img(src="images/vision01.jpg")
               .content
                   p.name 信義區富陽自然生態公園
                   p.description
@@ -148,7 +160,7 @@ block content
                       .item 圖片來源：台北市公燈處
           .item
               .image
-                  img(src="images/case.04.jpg")
+                  img(src="images/vision02.jpg")
               .content
                   p.name 松山區幸福農場
                   p.description
@@ -158,7 +170,7 @@ block content
                       .item 經營單位：復健里里辦公處
           .item
               .image
-                  img(src="https://scontent-a.xx.fbcdn.net/hphotos-xfa1/t1.0-9/p480x480/10552658_326782487498419_5093993076732433938_n.jpg")
+                  img(src="images/vision03.jpg")
               .content
                   p.name 萬華區南機場樂活園地
                   p.description 
@@ -169,7 +181,7 @@ block content
                       .item 圖片來源：太陽自創旅館 - 南機場
           .item
               .image
-                  img(src="http://static.ettoday.net/images/309/309597.jpg")
+                  img(src="images/vision04.jpg")
               .content
                   p.name 松山區寶清段社會住宅
                   p.description 
@@ -180,7 +192,7 @@ block content
                       .item 圖片來源：台北市都市發展局
           .item
               .image
-                  img(src="https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-xfp1/t1.0-9/p480x480/10339679_249682165234858_7142478842126817407_n.jpg")
+                  img(src="images/vision05.jpg")
               .content
                   p.name 中山區 FutureWard 未來產房
                   p.description

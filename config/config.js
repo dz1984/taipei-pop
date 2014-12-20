@@ -1,6 +1,5 @@
 'use strict';
 
-var util = require('util');
 var path = require('path');
 var rootPath = path.normalize(__dirname + '/..');
 
@@ -16,9 +15,12 @@ module.exports = {
         viewPath: rootPath + '/app/views',
         staticPath: rootPath + '/public',
         dataPath: rootPath + '/data',
+        uploadPath: rootPath + '/upload',
+        imagePath: rootPath + '/upload/images',
         cachePath: rootPath + '/cache',
         viewEngine: 'jade',
-        enableCache: false
+        enableCache: false,
+        dbConnStr: "postgres://PG_USER:PG_PWD@127.0.0.1/PG_DB",
     },
 
     test: {

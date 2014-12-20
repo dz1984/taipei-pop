@@ -107,13 +107,44 @@
         map.data.setStyle( function(feature){
             var renew_stat = feature.getProperty("都更狀態");
             var color = 'red';
-            if(renew_stat.length == 0){
+            if(!renew_stat || renew_stat.length === 0){
                 color = 'yellow';
             }
             return {
                 fillColor: color,
-                strokeWeight: 1
+                strokeWeight: 1,
+                fillOpacity: 0.2
             };
+        });
+
+        map.data.addListener('addfeature', function(event){
+            var upload_image = $.trim(event.feature.getProperty('upload_image'));
+            
+            if (upload_image === '') {
+                return;
+            }
+
+            var lat = Number(event.feature.getProperty('ycenter'));
+            var lng = Number(event.feature.getProperty('xcenter'));
+            var latLng = new google.maps.LatLng(lat,lng);
+
+            var marker = new google.maps.Marker({
+                position: latLng,
+                map: map,
+                icon: { 
+                    url: 'images/camera-icon.png',
+                    scaledSize: new google.maps.Size(15,15)
+
+                },
+            });
+        });
+
+        map.data.addListener('mouseover', function(event){
+            this.overrideStyle(event.feature, {strokeWeight: 2, fillOpacity: 1});
+        });
+
+        map.data.addListener('mouseout', function(event){
+            this.overrideStyle(event.feature, {strokeWeight: 1, fillOpacity: 0.2});
         });
 
         map.data.addListener("click", function(event) {
@@ -121,18 +152,75 @@
             var content = "<table class='ui table segment'>";
 
             properties.forEach(function(element, index, array) {
-               
-                content += "<tr><td>" + element + "</td><td>" + event.feature.getProperty(element) + "</td></tr>";
+                var property = event.feature.getProperty(element);
+                if (element === "面積"){
+                  property += " 平方公尺";  
+                }
+                content += "<tr><td>" + element + "</td><td>" + property + "</td></tr>";
             });
             //for urban-renew information
-            var caseurl = event.feature.getProperty("caseurl");
-            content += "<tr><td>都更狀態</td>";
-            content += "<td><a href="+caseurl+" target='_blank'>"+ event.feature.getProperty("都更狀態") + "</a></td></tr>";
+            var id = $.trim(event.feature.getProperty('id'));
+            var caseurl = $.trim(event.feature.getProperty("caseurl"));
+            var status = $.trim(event.feature.getProperty("都更狀態"));
+            var upload_image = $.trim(event.feature.getProperty('upload_image'));
+            
+            var image_tpl = '';
+            var renew_tpl = '';
+            
+            if (status !== '') {
+                renew_tpl = "<a href="+caseurl+" target='_blank'>"+ status + "</a>";
+            }
+
+            if (upload_image !== '') {
+                var image_url = '/u/images/' + upload_image;
+                image_tpl = "<a class='js_image ui medium image' href='" + image_url + "' target='_blank'><img src='"+ image_url +"' width='50px' /></a>";
+                image_tpl += "<div class='ui modal js_modal'><i class='close icon'></i><div class='content ui center aligned segment'><img src='"+ image_url +"' /></div></div>";
+            }
+
+
+            content += "<tr><td>都更狀態</td><td>"+ renew_tpl +"</td></tr>";
+            content += "<tr><td>圖片：</td><td class='js_upload_image'>"+ image_tpl + "</td></tr>";
+            content += "<tr><td>提供圖片</td><td><form id='upload_form' action='/image/upload' method='post' enctype='multipart/form-data'>";
+            content += "<input type='hidden' name='id' value='"+ id + "' />";
+            content += "<input type='file' name='image'/><button type='submit' id='img_upload'>上傳</button>";
+            content += "<img src='/image/exposure?id="+ id +"' width='0px'/>";
+            content += "</form></td></tr>";
             content += "</table>";
+            
             popinfo.close();
             popinfo.setContent(content);
             popinfo.setPosition(event.latLng);
             popinfo.open(map);
+
+            var jqImage = $('.js_image');
+            var jqModal = jqImage.siblings('div.js_modal');
+
+            jqImage.on('click', function(event){
+                event.preventDefault();
+
+                jqModal.modal('show');
+ 
+                return false;
+            });
+
+            $('#upload_form').on('submit', function() {
+                
+                $(this).ajaxSubmit({
+                    success: function(response){
+                        if (response.status) {
+                            var img_url = '/u/images/' + response.filenames;
+                            var img = $('<img>').attr('src', img_url).attr('width','50px');
+                            $('.js_upload_image').append(img);
+
+                            event.feature.setProperty('upload_image', response.filenames);
+                        }
+                    },
+                    error: function(response) {
+                        console.log('error');
+                    }
+                });
+                return false;
+            });
         });
     };
 
@@ -171,8 +259,13 @@
 
     $(".dropdown").dropdown({
       onChange: function(val) {
-        $(".map-notice").hide();
+        $(".map-notice").remove();
+        $("#map-canvas").css('display','table-row');
       }
+    });
+
+    $(".data-description").popup({
+        on: 'click'
     });
 
     FIELDS.forEach(function(field){
@@ -196,10 +289,10 @@
             } else {
                 clearTimeout( updateAddressTimer );
                 updateAddressTimer = setTimeout( function() {
-                    updateAddress( e, true )
+                    updateAddress( e, true );
                 }, 10000 );
             }
-        }
+        };
 
     jqAddress.mousedown( updateAddress );
 

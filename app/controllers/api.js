@@ -1,18 +1,10 @@
 'use strict';
 
+var pg = require('pg');
 var crypto = require("crypto");
 var request = require("request");
-var google = require('googleapis');
-var Cache = require("ds-cache");
-var OAuth2 = google.auth.OAuth2;
 
-var fusiontables = google.fusiontables('v1');
-
-var API_KEY = 'AIzaSyDoiTO_F18qgck4SQ8N6qi6Dy0wVsfb7aA';
-var TABLENAME = '1Gt4nCDvJ79AUw50qgo6myz6qI-m5b-T5p4wrtJSS';
-
-//var SQLSCRIPT = 'SELECT GeoJson FROM ' + TABLENAME;
-var SQLSCRIPT = 'SELECT GeoJson, RenewStatus, RenewDetail FROM ' + TABLENAME;
+var SQLSCRIPT = 'SELECT geo_json, renew_status, renew_detail, id, upload_image FROM taipei_pop' ;
 
 var GEOCODEAPI_URL = "http://maps.googleapis.com/maps/api/geocode/json?address=";
 
@@ -29,7 +21,7 @@ var FIELDS =
         'isStr': false
     },
     'Unit': {
-        'symbol': ' LIKE ',
+        'symbol': ' SIMILAR TO ',
         'isStr': true
     }
 };
@@ -64,35 +56,12 @@ var _makeCondition = function(field, value){
         newValue = _str(newValue);
     }
 
-    return field + _config.symbol + newValue;
+    return field.toLowerCase() + _config.symbol + newValue;
 };
 
-var _generateHashId = function(query) {
-    var md5 = crypto.createHash('md5');
-    var query_string = JSON.stringify(query);
 
-    return md5.update(query_string).digest('hex');
-};
 
-var _getCache  = function(config) {
-
-    if (!config.enableCache) {
-        return null;
-    }
-
-    var cachePath = config.cachePath;
-    var cache = new Cache(
-        {
-            limit_bytes: '30M',
-            filename : cachePath + "/ds.json",
-            auto_save: true
-        }
-    );
-
-    return cache;
-};
-
-var _makeParams = function(conditions){
+var _makeSQLScript = function(conditions){
     var query = SQLSCRIPT;
 
     if (conditions.length > 0) {
@@ -101,104 +70,60 @@ var _makeParams = function(conditions){
 
     console.log('SQL:' + query);
 
-    var params = {
-        'sql': query,
-        'key': API_KEY
-    };
-
-    return params;
-
+    return query;
 };
 
-var _sendJson = function(conditions, res, hashid, cache){
-    var params = _makeParams(conditions);
+var _sendJson = function(conditions, req, res){
+    var config = req.app.get('envConfig');
 
+    var sqlscript= _makeSQLScript(conditions);
 
-    fusiontables.query.sqlGet(params, function(err, result) {
+    var client = new pg.Client(config.dbConnStr);
+
+    client.connect(function(err){
+        if (err) {
+            return console.error('could not connect to postgres', err);    
+        }
+
+        client.query(sqlscript, function(err, result){ 
+            if (err) {
+                console.log('error running query', err);
+                return;
+            }
+
+            var rows = result.rows;
+
+            if (!rows) {
+                res.send({});
+                return;
+            }
+
+            var GeoJsonList = rows.reduce(function(a,b){
+                var geojson = b.geo_json;
         
-        if (err){
-            console.log(err);
-            return;
-        }
+                geojson.properties['都更狀態'] = b.renew_status;
+                geojson.properties.caseurl = b.renew_detail;
+                geojson.properties.id = b.id;
+                geojson.properties.upload_image = b.upload_image;
 
-        var rows = result.rows;
+                return a.concat(geojson);
+            },[]);
 
-        if (!rows) {
-            res.send({});
-            return;
-        }
+            var GeoJson = {
+                "type": "FeatureCollection",
+                "features": GeoJsonList
+            };
+            
+            res.send(GeoJson);
 
-        var GeoJsonList = rows.reduce(function(a,b){
-            var geojson = b[0];
-            var stat = b[1];
-            var caseurl = b[2];
-            var parsed = JSON.parse(geojson);
-            parsed['properties']['都更狀態']=stat;
-            parsed['properties']['caseurl']=caseurl;
-            return a.concat(parsed);
-        },[]);
+            client.end();
+        });
 
-        var GeoJson = {
-            "type": "FeatureCollection",
-            "features": GeoJsonList
-        };
-
-        if (cache) {
-            cache.set(hashid, GeoJson);
-        }
-
-        res.send(GeoJson);
     });
-};
-
-var cacheInfo = function(req, res, next) {
-    var config = req.app.get('envConfig');
-    var cache = _getCache(config);
-
-    if (!cache){
-        res.send({});
-        return;
-    }
-
-    var size = cache.size();
-    var content_length = cache.content().length;
-
-    var info = {
-        size: size,
-        length: content_length
-    };
-
-    res.send(info);
-};
-
-var cacheClear = function(req, res, next) {
-    var config = req.app.get('envConfig');
-    var cache = _getCache(config);
-    
-    if (!cache){
-        res.send({});
-        return;
-    }
-
-    cache.clear();
-    
-    res.send(200);
 };
 
 exports.toSearch = function(req, res, next) {
     var config = req.app.get('envConfig');
-    var hashid = _generateHashId(req.query);
-
-    var cache = _getCache(config);
-
-    if (cache) {	
-        var resultRow = cache.get(hashid);
-	    
-        if (resultRow){
-            res.send(resultRow);
-            return;
-        }
-    }
 
     // catch the query string 
     var fields = Object.keys(FIELDS);
@@ -206,7 +131,7 @@ exports.toSearch = function(req, res, next) {
     var conditions = [];
 
     // the address condition
-    var address = req.query['Address'];
+    var address = req.query.Address;
 
     console.log('Query String: ' + JSON.stringify(req.query));
 
@@ -242,29 +167,12 @@ exports.toSearch = function(req, res, next) {
                     
                     conditions.push(addr_condition);
                 }
-                _sendJson(conditions, res, hashid, cache);
+                _sendJson(conditions, req, res);
             }
         );
     } else {
         // catch data and send Json
-        _sendJson(conditions, res, hashid, cache);
+        _sendJson(conditions, req, res);
     }
-};
-
-exports.handleClear = function( req, res, next ) {
-    var action = req.params.action;
-        
-    // execute the action function
-    switch(action) {
-        case 'info':
-            cacheInfo(req, res, next);
-            break;
-        case 'clear':
-            cacheClear(req, res, next);
-            break;
-        default:
-            res.send({});
-        }
-    return;
 };
 
