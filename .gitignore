@@ -2,4 +2,8 @@ cache/ds.json
 upload/*
 node_modules/*
 *.DS_Store
+<<<<<<< HEAD
 .gitignore
+=======
+
+>>>>>>> dev
