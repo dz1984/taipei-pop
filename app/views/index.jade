@@ -8,27 +8,32 @@ block content
     section#case.page.case-page
       .text-vertical-center.padding
         .ui.three.column.grid
-          .column
-              h4 <strong>62</strong>公頃<br>
-              p 台北市十年間賣掉
-              .case-info
-                  img(src="images/case.01.jpg")
-                  p <strong>台北市大安區信義聯勤俱樂部</strong>
-                    | 標售給新光人壽再賣給元利建設，蓋兩棟31、35層豪宅
-          .column
-              h4 <strong>3</strong>公頃<br>
-              p 至今被劃入都市更新
-              .case-info
-                  img(src="images/case.02.jpg")
-                  p <strong>文萌樓都市更新案</strong>
-                    | 近698坪公有土地被劃入更新，卻不受國有財產法500坪禁售限制
-          .column
-              h4 <strong>3</strong>公頃<br>
-              p 至今被 BOT
-              .case-info
-                  img(src="images/case.03.jpg")
-                  p <strong>遠雄大巨蛋</strong>
-                    | BOT 的過程與週邊環境衝擊持續爭議中
+            .row
+              .column
+                  h4 <strong>62</strong>公頃<br>
+                  p 台北市十年間賣掉
+              .column
+                  h4 <strong>3</strong>公頃<br>
+                  p 至今被劃入都市更新
+              .column
+                  h4 <strong>3</strong>公頃<br>
+                  p 至今被 BOT
+            .row
+              .column
+                  .case-info
+                      img(src="images/case.01.jpg")
+                      p <strong>台北市大安區信義聯勤俱樂部</strong>
+                        | 標售給新光人壽再賣給元利建設，蓋兩棟31、35層豪宅
+              .column
+                  .case-info
+                      img(src="images/case.02.jpg")
+                      p <strong>文萌樓都市更新案</strong>
+                        | 近698坪公有土地被劃入更新，卻不受國有財產法500坪禁售限制
+              .column
+                  .case-info
+                      img(src="images/case.03.jpg")
+                      p <strong>遠雄大巨蛋</strong>
+                        | BOT 的過程與週邊環境衝擊持續爭議中
     section#request.request-page.page  
       .text-vertical-center
         h1 我們的訴求
@@ -129,11 +134,13 @@ block content
       #map-canvas
       .text-vertical-center.map-notice
         h1
+          i.angle.double.up.icon
           | 請選擇地區
+          i.angle.double.up.icon
     section#vision.vision-page.page  
       .text-vertical-center.padding
         h1
-            | 土地好願景
+          | 土地好願景
         .ui.three.items
           .item
               .image
