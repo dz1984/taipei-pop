@@ -51,7 +51,8 @@
     }
     };
 
-    var API = "/api/search";
+    var BACKEND_URL = "";
+    var API = BACKEND_URL + "/api/search";
 
     var FIELDS = ['Block','Area','Unit','Address'];
 
@@ -67,7 +68,7 @@
     var showMap = function(query) {
         var maploading = $("#map-loading");
         maploading.addClass('active');
-       
+
         var block = search.get('Block');
 
         if (block === undefined ||  block === ''){
@@ -88,7 +89,6 @@
         });
 
         var JsonUrl = getAPIUrl(query);
-        console.log("JSON URL: " + JsonUrl);
 
         $.getJSON(JsonUrl, function(GeoJSON){
             if (! $.isEmptyObject(GeoJSON)){
@@ -97,12 +97,10 @@
                     map.data.addGeoJson(feature);
                 });
             }
-            
+
         }).always(function(){
             maploading.removeClass('active');
         });
-
-
 
         map.data.setStyle( function(feature){
             var renew_stat = feature.getProperty("都更狀態");
@@ -110,6 +108,7 @@
             if(!renew_stat || renew_stat.length === 0){
                 color = 'yellow';
             }
+
             return {
                 fillColor: color,
                 strokeWeight: 1,
@@ -118,24 +117,42 @@
         });
 
         map.data.addListener('addfeature', function(event){
-            var upload_image = $.trim(event.feature.getProperty('upload_image'));
-            
+            var feature = event.feature;
+            var upload_image = $.trim(feature.getProperty('upload_image'));
+
             if (upload_image === '') {
                 return;
             }
 
-            var lat = Number(event.feature.getProperty('ycenter'));
-            var lng = Number(event.feature.getProperty('xcenter'));
+            var lat = Number(feature.getProperty('ycenter'));
+            var lng = Number(feature.getProperty('xcenter'));
             var latLng = new google.maps.LatLng(lat,lng);
+
+            var icon_url = 'images/camera-icon.png';
+            var icon_small_size = new google.maps.Size(15, 15);
+            var icon_big_size = new google.maps.Size(20, 20);
+            var small_icon = { 
+                    url: icon_url,
+                    scaledSize: icon_small_size,
+                };
+            var big_icon = $.extend({}, small_icon, {scaledSize: icon_big_size});
 
             var marker = new google.maps.Marker({
                 position: latLng,
                 map: map,
-                icon: { 
-                    url: 'images/camera-icon.png',
-                    scaledSize: new google.maps.Size(15,15)
+                icon: small_icon,
+            });
 
-                },
+            google.maps.event.addListener(marker, 'click', function(event){
+                google.maps.event.trigger(map.data , 'click', {stop: null,latLng: latLng, feature: feature});  
+            });
+
+            google.maps.event.addListener(marker, 'mouseover', function(event){
+               this.setIcon(big_icon); 
+            });
+
+            google.maps.event.addListener(marker, 'mouseout', function(event){
+               this.setIcon(small_icon);
             });
         });
 
@@ -158,35 +175,35 @@
                 }
                 content += "<tr><td>" + element + "</td><td>" + property + "</td></tr>";
             });
+
             //for urban-renew information
             var id = $.trim(event.feature.getProperty('id'));
             var caseurl = $.trim(event.feature.getProperty("caseurl"));
             var status = $.trim(event.feature.getProperty("都更狀態"));
             var upload_image = $.trim(event.feature.getProperty('upload_image'));
-            
+
             var image_tpl = '';
             var renew_tpl = '';
-            
+
             if (status !== '') {
                 renew_tpl = "<a href="+caseurl+" target='_blank'>"+ status + "</a>";
             }
 
             if (upload_image !== '') {
-                var image_url = '/u/images/' + upload_image;
+                var image_url = BACKEND_URL + '/u/images/' + upload_image;
                 image_tpl = "<a class='js_image ui medium image' href='" + image_url + "' target='_blank'><img src='"+ image_url +"' width='50px' /></a>";
                 image_tpl += "<div class='ui modal js_modal'><i class='close icon'></i><div class='content ui center aligned segment'><img src='"+ image_url +"' /></div></div>";
             }
 
-
             content += "<tr><td>都更狀態</td><td>"+ renew_tpl +"</td></tr>";
             content += "<tr><td>圖片：</td><td class='js_upload_image'>"+ image_tpl + "</td></tr>";
-            content += "<tr><td>提供圖片</td><td><form id='upload_form' action='/image/upload' method='post' enctype='multipart/form-data'>";
+            content += "<tr><td>提供圖片</td><td><form id='upload_form' action='" + BACKEND_URL + "/image/upload' method='post' enctype='multipart/form-data'>";
             content += "<input type='hidden' name='id' value='"+ id + "' />";
-            content += "<input type='file' name='image'/><button type='submit' id='img_upload'>上傳</button>";
-            content += "<img src='/image/exposure?id="+ id +"' width='0px'/>";
+            content += "<input type='file' name='image' accept='image/*' capture /><button type='submit' id='img_upload'>上傳</button>";
+            content += "<img src='" + BACKEND_URL + "/image/exposure?id="+ id +"' width='0px'/>";
             content += "</form></td></tr>";
             content += "</table>";
-            
+
             popinfo.close();
             popinfo.setContent(content);
             popinfo.setPosition(event.latLng);
@@ -199,16 +216,16 @@
                 event.preventDefault();
 
                 jqModal.modal('show');
- 
+
                 return false;
             });
 
             $('#upload_form').on('submit', function() {
-                
+
                 $(this).ajaxSubmit({
                     success: function(response){
                         if (response.status) {
-                            var img_url = '/u/images/' + response.filenames;
+                            var img_url = BACKEND_URL + '/u/images/' + response.filenames;
                             var img = $('<img>').attr('src', img_url).attr('width','50px');
                             $('.js_upload_image').append(img);
 
@@ -234,7 +251,7 @@
     };
     Search.prototype.get = function(key) {
         var val = this.vars[key];
-        
+
         return val;
     };
 
