@@ -72,7 +72,8 @@ body {
 
 .header-page {
     color: white;
-    background-image: url('http://fc04.deviantart.net/fs22/f/2009/251/3/6/Wall_of_Fire_by_JJenkinsPhotography.jpg');
+    background-color: black;
+    background-image: url('/images/Wall_of_Fire_by_JJenkinsPhotography.jpg');
 }
 
 
