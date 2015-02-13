@@ -68,7 +68,7 @@
     var showMap = function(query) {
         var maploading = $("#map-loading");
         maploading.addClass('active');
-       
+
         var block = search.get('Block');
 
         if (block === undefined ||  block === ''){
@@ -97,12 +97,10 @@
                     map.data.addGeoJson(feature);
                 });
             }
-            
+
         }).always(function(){
             maploading.removeClass('active');
         });
-
-
 
         map.data.setStyle( function(feature){
             var renew_stat = feature.getProperty("都更狀態");
@@ -110,6 +108,7 @@
             if(!renew_stat || renew_stat.length === 0){
                 color = 'yellow';
             }
+
             return {
                 fillColor: color,
                 strokeWeight: 1,
@@ -120,7 +119,7 @@
         map.data.addListener('addfeature', function(event){
             var feature = event.feature;
             var upload_image = $.trim(feature.getProperty('upload_image'));
-            
+
             if (upload_image === '') {
                 return;
             }
@@ -176,15 +175,16 @@
                 }
                 content += "<tr><td>" + element + "</td><td>" + property + "</td></tr>";
             });
+
             //for urban-renew information
             var id = $.trim(event.feature.getProperty('id'));
             var caseurl = $.trim(event.feature.getProperty("caseurl"));
             var status = $.trim(event.feature.getProperty("都更狀態"));
             var upload_image = $.trim(event.feature.getProperty('upload_image'));
-            
+
             var image_tpl = '';
             var renew_tpl = '';
-            
+
             if (status !== '') {
                 renew_tpl = "<a href="+caseurl+" target='_blank'>"+ status + "</a>";
             }
@@ -195,7 +195,6 @@
                 image_tpl += "<div class='ui modal js_modal'><i class='close icon'></i><div class='content'><img class='ui image' src='"+ image_url +"' /></div></div>";
             }
 
-
             content += "<tr><td>都更狀態</td><td>"+ renew_tpl +"</td></tr>";
             content += "<tr><td>圖片：</td><td class='js_upload_image'>"+ image_tpl + "</td></tr>";
             content += "<tr><td>提供圖片</td><td><form id='upload_form' action='" + BACKEND_URL + "/image/upload' method='post' enctype='multipart/form-data'>";
@@ -204,7 +203,7 @@
             content += "<img src='" + BACKEND_URL + "/image/exposure?id="+ id +"' width='0px'/>";
             content += "</form></td></tr>";
             content += "</table>";
-            
+
             popinfo.close();
             popinfo.setContent(content);
             popinfo.setPosition(event.latLng);
@@ -217,12 +216,12 @@
                 event.preventDefault();
 
                 jqModal.modal('show');
- 
+
                 return false;
             });
 
             $('#upload_form').on('submit', function() {
-                
+
                 $(this).ajaxSubmit({
                     success: function(response){
                         if (response.status) {
@@ -252,7 +251,7 @@
     };
     Search.prototype.get = function(key) {
         var val = this.vars[key];
-        
+
         return val;
     };
 
