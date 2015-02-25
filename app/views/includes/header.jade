@@ -1,17 +1,34 @@
 header
-    .ui.fixed.main.menu.pop.inverted        
-        .header.item
-          .ui.horizontal.list
-            .item.logo-header
-              | 天龍特公地
-            .item
-              #pop-icon 火
-        a.item(href="/")
-          | 公有地火大啦
-        a.item(href="#request")
-          | 我們的訴求
-        a.item(href="#area")
-          | 公有土地大搜查
-        a.item(href="#vision")
-          | 土地好願景
+  .navbar.navbar-default.navbar-fixed-top
+    .container
+      .navbar-header
+        button.navbar-toggle(type='button',data-toggle='collapse', data-target='.navbar-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+        a.navbar-brand(href='/')
+          img#logo(src="images/logo.png")
+          span
+            | 天龍特公地
+
+
+
+      .navbar-collapse.collapse.navbar-right.scroll-me
+        ul.nav.navbar-nav
+          li
+            a(href='#home')
+              span.glyphicon.glyphicon-fire
+              | 公有地火大啦
+          li
+            a(href="#request")
+              span.glyphicon.glyphicon-screenshot
+              | 我們的訴求
+          li
+            a(href="#area")
+              span.glyphicon.glyphicon-search
+              | 天龍特公地大搜查
+          li
+            a.item(href="#vision")
+              span.glyphicon.glyphicon-heart-empty
+              | 土地好願景
 

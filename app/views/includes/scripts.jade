@@ -1,6 +1,42 @@
 script(src="js/libs/jquery.min.js")
 script(src="js/libs/jquery.form.min.js")
-script(src="js/libs/semantic.min.js")
+script(src="js/libs/underscore-min.js")
+script(src="js/libs/bootstrap.js")
 script(src="https://maps.googleapis.com/maps/api/js?v=3.exp")
 script(src="js/index.js")
 
+script(type="text/template",id="renew-tpl")
+    | <a href="<%=caseurl%>" target="_blank"><%=status%></a>
+
+
+script(type="text/template", id="content-tpl")
+    | <div class="modal fade"><div class="modal-dialog modal-lg"><div class="modal-content">
+    | <div class="modal-header">
+    | <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    | <span aria-hidden="true">&times;</span>
+    | </button>
+    | <h4 class="modal-title"><%=road%>(<%=land%>)</h4>
+    | </div>
+    | <div class="modal-body"><div class="row">
+    | <div class="col-md-6"><img src="<%=image_url%>" width="100%" /></div>
+    | <div class="col-md-6">
+    | <form id='upload_form' action='" + BACKEND_URL + "/image/upload' method='post' enctype='multipart/form-data'>
+    | <table class="table table-striped">
+    | <tr><td>路段</td><td><%=road%></td></tr>
+    | <tr><td>地號</td><td><%=land%></td></tr>
+    | <tr><td>面積</td><td><%=area%> 平方公尺</td></tr>
+    | <tr><td>都更狀態</td><td><%=renew_tpl%></td></tr>
+    | <tr><td>管理者</td><td><%=unit%></td></tr>
+    | <tr><td>使用分區</td><td><%=category%></td></tr>
+    | <tr><td>提供圖片</td>
+    |<td>
+    | <input type="file" name="image" accept="image/*" capture="camera" />  
+    |</td></tr>
+    | </table>
+    | <button type="submit" class="btn btn-primary btn-lg" id="img_upload">上傳</button>
+    | <input type="hidden" name="id" value="<%=id%>" />
+    | <form> 
+    | </div>
+    | <img src="<%=backedn_url%>/image/exposure?id=<%=id%>" width="0px"/>
+    | </div>
+    | </div></div></div>

@@ -67,7 +67,7 @@
 
     var showMap = function(query) {
         var maploading = $("#map-loading");
-        maploading.addClass('active');
+        maploading.modal('show');
 
         var block = search.get('Block');
 
@@ -99,7 +99,7 @@
             }
 
         }).always(function(){
-            maploading.removeClass('active');
+            maploading.modal('hide');
         });
 
         map.data.setStyle( function(feature){
@@ -166,15 +166,12 @@
 
         map.data.addListener("click", function(event) {
             var properties = ["面積", "路段", "地號", "管理者", "使用分區"];
-            var content = "<table class='ui table segment'>";
 
-            properties.forEach(function(element, index, array) {
-                var property = event.feature.getProperty(element);
-                if (element === "面積"){
-                  property += " 平方公尺";  
-                }
-                content += "<tr><td>" + element + "</td><td>" + property + "</td></tr>";
-            });
+            var area = event.feature.getProperty('面積');
+            var road = event.feature.getProperty('路段');
+            var land = event.feature.getProperty('地號');
+            var unit = event.feature.getProperty('管理者');
+            var category = event.feature.getProperty('使用分區');
 
             //for urban-renew information
             var id = $.trim(event.feature.getProperty('id'));
@@ -182,43 +179,31 @@
             var status = $.trim(event.feature.getProperty("都更狀態"));
             var upload_image = $.trim(event.feature.getProperty('upload_image'));
 
-            var image_tpl = '';
             var renew_tpl = '';
+            var image_url = 'images/logo.png';
 
             if (status !== '') {
-                renew_tpl = "<a href="+caseurl+" target='_blank'>"+ status + "</a>";
+                var renew_compiled = _.template($('#renew-tpl').text());
+                renew_tpl = renew_compiled({caseurl: caseurl, status: status});
             }
 
             if (upload_image !== '') {
-                var image_url = BACKEND_URL + '/u/images/' + upload_image;
-                image_tpl = "<a class='js_image ui medium image' href='" + image_url + "' target='_blank'><img src='"+ image_url +"' width='50px' /></a>";
-                image_tpl += "<div class='ui modal js_modal'><i class='close icon'></i><div class='content'><img class='ui image' src='"+ image_url +"' /></div></div>";
+                image_url = BACKEND_URL + '/u/images/' + upload_image;
             }
 
-            content += "<tr><td>都更狀態</td><td>"+ renew_tpl +"</td></tr>";
-            content += "<tr><td>圖片：</td><td class='js_upload_image'>"+ image_tpl + "</td></tr>";
-            content += "<tr><td>提供圖片</td><td><form id='upload_form' action='" + BACKEND_URL + "/image/upload' method='post' enctype='multipart/form-data'>";
-            content += "<input type='hidden' name='id' value='"+ id + "' />";
-            content += "<input type='file' name='image' accept='image/*' capture='camera' /><button type='submit' id='img_upload'>上傳</button>";
-            content += "<img src='" + BACKEND_URL + "/image/exposure?id="+ id +"' width='0px'/>";
-            content += "</form></td></tr>";
-            content += "</table>";
-
-            popinfo.close();
-            popinfo.setContent(content);
-            popinfo.setPosition(event.latLng);
-            popinfo.open(map);
-
-            var jqImage = $('.js_image');
-            var jqModal = jqImage.siblings('div.js_modal');
-
-            jqImage.on('click', function(event){
-                event.preventDefault();
-
-                jqModal.modal('show');
-
-                return false;
+            var content_compiled = _.template($('#content-tpl').text());
+            var content = content_compiled({
+                id: id,
+                road: road,
+                land: land,
+                area: area,
+                unit: unit,
+                category: category,
+                image_url: image_url,
+                renew_tpl: renew_tpl,
+                backedn_url: BACKEND_URL
             });
+            $(content).modal();
 
             $('#upload_form').on('submit', function() {
 
@@ -226,7 +211,7 @@
                     success: function(response){
                         if (response.status) {
                             var img_url = BACKEND_URL + '/u/images/' + response.filenames;
-                            var img = $('<img>').attr('src', img_url).attr('width','50px');
+                            var img = $('<img>').attr('src', img_url).attr('width','100%');
                             $('.js_upload_image').append(img);
 
                             event.feature.setProperty('upload_image', response.filenames);
@@ -249,6 +234,7 @@
         this.vars[key] = val;
         this.run();
     };
+
     Search.prototype.get = function(key) {
         var val = this.vars[key];
 
@@ -274,24 +260,24 @@
 
     var search = new Search();
 
-    $(".dropdown").dropdown({
-      onChange: function(val) {
+    $('.carousel').carousel();
+    $('.collapse').collapse('hide');
+    $('.dropdown-toggle').dropdown();
+    $('.dropdown-menu a').on('click',function(val) {
         $(".map-notice").remove();
-        $("#map-canvas").css('display','table-row');
-      }
     });
-
+    /*
     $(".data-description").popup({
         on: 'click'
     });
-
+    */
     FIELDS.forEach(function(field){
         var selector = $(".choice-" + field.toLowerCase() + " a");
-
+        var jq_dropdown_button = $('#choice-' + field.toLowerCase() );
         selector.click(function(){
-          var val;
-          val = $(this).attr("data-value");
+          var val = $(this).attr("data-value");
           search.set(field, val);
+          jq_dropdown_button.text($(this).text());
         });
 
     });
@@ -313,4 +299,22 @@
 
     jqAddress.mousedown( updateAddress );
 
+    var clickEvent = false;
+
+    $('#carousel-home').on('click','.nav a', function () {
+        clickEvent = true;
+        $('#carousel-home .nav li').removeClass('active');
+        $(this).parent().addClass('active');
+    }).on('slide.bs.carousel', function (e) {
+        if (!clickEvent) {
+            var count = $('#carousel-home .nav').children().length - 1;
+            var current = $('#carousel-home .nav li.active');
+            current.removeClass('active').next().addClass('active');
+            var id = parseInt(current.data('slide-to'));
+            if (count == id) {
+                $('#carousel-home .nav li').first().addClass('active');
+            }
+        }
+        clickEvent = false;
+    });
 })();

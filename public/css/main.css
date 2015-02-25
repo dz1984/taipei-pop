@@ -1,212 +1,149 @@
-html,
+html, body {
+  height: 100%;
+}
 body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
+    font-family: Noto Sans, Noto Sans T Chinese, Microsoft JhengHei, sans-serif;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
+.navbar-default {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-color: transparent;
+    color: #ff0000;
 }
 
-.logo-header {
+.navbar-default .navbar-nav > li > a, 
+.navbar-default .navbar-nav > li > a:hover {
+    color: #bb0000;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #ffffff;
+}
+
+.navbar-brand span {
+    padding-left: 10px;
+}
+
+.head-set {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.page-title {
+    font-size: 60px;
     font-weight: bold;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
-#pop-icon {
-	background-color: red;
-	color: #fff;
-	font-size: 1.4em;
-	font-weight: bold;
-	border-radius: 6px;
-	padding: 8px;
+.pad-bottom {
+    padding-bottom: 60px;
 }
 
-/* menu */
-.ui.inverted.menu.pop {
-	background-color: #3d3d47;
-}
-
-.text-vertical-center {
-    display: table-cell;
-    text-align: center;
-    vertical-align: middle;
-}
-
-.text-vertical-center.padding {
-	padding: 4em;
-}
-
-.text-vertical-center h1 {
-    margin: 50px;
+#logo {
+    margin-top: -15px;
     padding: 0;
-    font-size: 5em;
-    font-weight: 800;
+    height: 48px;
+    width: auto;
+    float: left;
 }
 
-.text-vertical-center h3 {
-    color: #000000;
-    padding: 50px;
-    font-size: 3em;
-}
-
-.beta-font {
-  color: #DB0A5B;
-  font-style: italic;
-  font-size: 0.2em;
-  vertical-align: text-top;
-}
-
-.page {
-    display: table;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background-color: #59ABE3;
+#home {
+    background: url(/images/Wall_of_Fire_by_JJenkinsPhotography.jpg) no-repeat center center;*/
+    padding: 0;
     -webkit-background-size: cover;
-    -moz-background-size: cover;
     background-size: cover;
-    -o-background-size: cover;
+    -moz-background-size: cover;
+    min-height: 800px;
 }
 
-.header-page {
-    color: white;
-    background-color: black;
-    background-image: url('/images/Wall_of_Fire_by_JJenkinsPhotography.jpg');
+#home .overlay {
+    background-color: rgba(231, 76, 60, 0.2);
+    min-height: 800px;
+    color: #ffffff;
 }
 
-
-.case-page {
-    background-color: black;
-    color: white;
+#home h1 {
+    padding-top: 90px;
+    padding-bottom: 50px;
+    font-weight: bold;
+    font-size: 60px;
 }
 
-.case-page .column p {
-	text-align: center;
+#area{
+    padding-bottom: 50px;
+    margin-top: 60px;
+    min-height: 200px;
+    background-color: #bfbfbf;
 }
 
-.case-page .column h4 {
-	font-size: 2em;
-	text-align: center;
+#area .data-info {
+    margin-top: 50px;
 }
 
-.case-page .column h4 strong {
-	font-size: 2em;
-}
-
-.case-info {
-    margin-top: 1em;
-	background-color: #fff;
-	border-radius: 8px;
-}
-
-.case-info img {
-	border-top-left-radius: 8px;
-	border-top-right-radius: 8px;
-	width: 100%;
-}
-
-.case-info p {
-	color: black;
-	padding: 18px 10px;
-	text-align: left;
-}
-
-.case-info p strong {
-	font-weight: bold;
-	display: block;
-	margin-bottom: 6px;
-}
-
-.about-page {
-     background-color: #65C6BB; 
-}
-
-.area-page {
-    background-color: black;
-}
-
-.area-page .area-param { 
-	padding: 0 4em; 
-} 
-
-.case-page h1, h2, h3, h4{
-    color: #FF8000;
-}
-
-.area-page h1, h2, h3, h4{
-    color: #FF8000;
-}
-
-.area-page .choice-block { 
-	width: 30%;
-	-moz-box-sizing: border-box; 
-	box-sizing: border-box;
-}
-
-.area-page .choice-area { 
-	width: 38%;
-	margin: 0 1%;
-	-moz-box-sizing: border-box; 
-	box-sizing: border-box;
-}
-
-.area-page .choice-unit { 
-	width: 30%;
-	-moz-box-sizing: border-box; 
-	box-sizing: border-box;
-}
-
-.area-page .input-address {
-	width: 100%;
-	margin-top: 6px;
-}
-
-.map-page {
-	background-color: #aaaaaa;
-}
-
-.request-page {
-    background-color: #CEF6F5;
-    color: #088A85;
-}
-
-.request-content {
-    margin: 0px auto;
-    width: 48%;
-}
-
-.request-page .request-content .item{
-	font-size: 1.4em;
-	line-height: 1.6em;	
-    text-align: left;
-}
-
-.data-description {
-  color: #DB0A5B;
-  font-style: italic;
-  font-size: 0.1em;
-  vertical-align: text-bottom;
-}
-
-.vision-page {
-    background-color: #CEF6F5;
-    color: #088A85;
-}
-
-.vision-page .item .description {
-    text-align: left;
+#vision {
+    background-color: #c5eff7;
 }
 
 #map-canvas {
-  height: 100%;
-  margin: 0px;
-  padding: 0px;
-  width: 100%;
+    height: 600px;
+    width: 100%;
 }
 
-footer {
-    text-align: right;
-    padding: 20px 0;
+.request-item {
+    font-size: 26px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
+
+.request-item:hover {      
+    background-color: #dedede;
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);    
+}
+
+.request-item span {
+    color: #f00;
+    padding: 10px;
+}
+
+.watched-btn {
+    margin-top: 50px;
+    font-size: 30px;
+}
+
+.map-notice {
+    margin-top: 100px;
+}
+
+#carousel-home .nav {
+    background-color: #ebebeb;
+}
+
+#carousel-home .carousel-caption {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.nav-justified > li > a {
+    border-radius: 0px;
+}
+
+.carousel-inner img {
+    width: 100%;
+}
+
+.nav-pills > li[data-slide-to="0"].active a {
+    background-color: #b4d9a7;
+}
+
+.nav-pills > li[data-slide-to="1"].active a {
+    background-color: #4f77cb;
+}
+
+.nav-pills > li[data-slide-to="2"].active a {
+    background-color: #d11e4f;
+}
+ 

@@ -1,211 +1,262 @@
 extends layouts/default
 
 block content
-    section.page.header-page
-      .text-vertical-center
-          h1 台北市的公有土地怎麼了！
+  #home
+    .overlay
+      .container
+        .col-md-8.col-md-offset-2.text-center
+          h1 
+            | 臺北市的公有土地怎麼了！
+        .row
+          .col-md-8.col-md-offset-2.text-center
+            #carousel-home.carousel.slide(data-ride="carousel")
+              ul.nav.nav-pills.nav-justified
+                li.active(data-target="#carousel-home", data-slide-to="0")
+                  a(href='#')
+                    | 臺北市十年間賣掉
+                    h3
+                      | 62 公頃
+                li(data-target="#carousel-home", data-slide-to="1")
+                  a(href='#')
+                    | 至今被劃入都市更新
+                    h3
+                      | 3 公頃
+                li(data-target="#carousel-home", data-slide-to="2")
+                  a(href='#')
+                    | 至今被 BOT
+                    h3
+                      | 3 公頃 
+              .carousel-inner(role="listbox")
+                .item.active
+                  img.img-responsive.center-block(src="images/case.01.jpg")
+                  .carousel-caption
+                    h3
+                      | 台北市大安區信義聯勤俱樂部
+                    p
+                      | 標售給新光人壽再賣給元利建設，蓋兩棟31、35層豪宅
+                .item
+                  img.img-responsive.center-block(src="images/case.02.jpg")
+                  .carousel-caption
+                    h3
+                      | 文萌樓都市更新案
+                    p
+                      | 近698坪公有土地被劃入更新，卻不受國有財產法500坪禁售限制               
+                .item
+                  img.img-responsive.center-block(src="images/case.03.jpg")
+                  .carousel-caption
+                    h3
+                      | 遠雄大巨蛋
+                    p
+                      | BOT 的過程與週邊環境衝擊持續爭議中
+                                                                     
+  #request  
+    .container
+    .row
+      .col-md-8.col-md-offset-2.col-sm-8.col-sm-offset-2
+        h1.text-center.page-title 
+          | 我們的訴求
+        
+        .well.well-lg.request-item
+          span.glyphicon.glyphicon-screenshot
+          | 修訂公有地處份法令，行政院國土活化督導小組不得閉門決策。
+        .well.well-lg.request-item
+          span.glyphicon.glyphicon-screenshot
+          | 全民參與公有土地決策過程，防止土地資源被不當使用。
+        .well.well-lg.request-item
+          span.glyphicon.glyphicon-screenshot
+          | 我國非公用與低度利用的公有土地，其地理資訊必須公佈於網路。
+        .well.well-lg.request-item
+          span.glyphicon.glyphicon-screenshot
+          | 公開公有土地的開發財務細節，公開說明規畫與未來 開發方向。
+        .well.well-lg.request-item
+          span.glyphicon.glyphicon-screenshot
+          | 設定公有地地上權時間上限，避免財團變相將公有土地私有化。
+        a.btn.btn-primary.btn-sm.btn-block.watched-btn(href="https://www.facebook.com/POPonFire")
+          | 邀請您共同來關注
 
-    section#case.page.case-page
-      .text-vertical-center.padding
-        .ui.three.column.grid
-            .row
-              .column
-                  h4 <strong>62</strong>公頃<br>
-                  p 台北市十年間賣掉
-              .column
-                  h4 <strong>3</strong>公頃<br>
-                  p 至今被劃入都市更新
-              .column
-                  h4 <strong>3</strong>公頃<br>
-                  p 至今被 BOT
-            .row
-              .column
-                  .case-info
-                      img(src="images/case.01.jpg")
-                      p <strong>台北市大安區信義聯勤俱樂部</strong>
-                        | 標售給新光人壽再賣給元利建設，蓋兩棟31、35層豪宅
-              .column
-                  .case-info
-                      img(src="images/case.02.jpg")
-                      p <strong>文萌樓都市更新案</strong>
-                        | 近698坪公有土地被劃入更新，卻不受國有財產法500坪禁售限制
-              .column
-                  .case-info
-                      img(src="images/case.03.jpg")
-                      p <strong>遠雄大巨蛋</strong>
-                        | BOT 的過程與週邊環境衝擊持續爭議中
-    section#request.request-page.page  
-      .text-vertical-center
-        h1 我們的訴求
-        .request-content
-          .ui.list
-            .item
-              .content
-                i.comment.icon
-                | 修訂公有地處份法令，行政院國土活化督導小組不得閉門決策。            
-            .item 
-              .content
-                i.comment.icon
-                | 全民參與公有土地決策過程，防止土地資源被不當使用。
-            .item 
-              .content
-                i.comment.icon
-                | 我國非公用與低度利用的公有土地，其地理資訊必須公佈於網路。
-            .item 
-              .content
-                i.comment.icon
-                | 公開公有土地的開發財務細節，公開說明規畫與未來 開發方向。
-            .item 
-              .content
-                i.comment.icon
-                | 設定公有地地上權時間上限，避免財團變相將公有土地私有化。
-          .ui.header
-            | 邀請您共同關注
-          a.circular.ui.icon.button(href="https://www.facebook.com/POPonFire")
-            i.icon.unhide
-            | 關注
-    section#area.area-page.page
-      .text-vertical-center
-        h1
-          | 天龍特公地大搜查 <span class="beta-font">&beta;</span>      
-   
-        .area-param
-          .ui.selection.dropdown.choice-block
-            .default.text
-              | 行政區
-            i.dropdown.icon
-            .menu
-              a.item(data-value='')
-                | 全部
-              a.item(data-value='中正區')
-                | 中正區
-              a.item(data-value='大同區')
-                 | 大同區
-              a.item(data-value='中山區')
-                 | 中山區
-              a.item(data-value='萬華區')
-                 | 萬華區
-              a.item(data-value='信義區')
-                 | 信義區
-              a.item(data-value='松山區')
-                 | 松山區
-              a.item(data-value='大安區')
-                 | 大安區
-              a.item(data-value='南港區')
-                 | 南港區
-              a.item(data-value='北投區')
-                 | 北投區
-              a.item(data-value='內湖區')
-                 | 內湖區
-              a.item(data-value='士林區')
-                 | 士林區
-              a.item(data-value='文山區')
-                 | 文山區
-          .ui.selection.dropdown.choice-area
-            .default.text
-              | 面積
-            i.dropdown.icon
-            .menu  
-              a.item(data-value='')
-                | 全部          
-              a.item(data-value=">=500")
-                | 500坪(1650平方公尺)以上
-              a.item(data-value=">20 AND <500")
-                | 20坪 ~ 500坪
-              a.item(data-value="<=20")
-                | 20坪以下
-          .ui.selection.dropdown.choice-unit
-            .default.text
-              | 經營單位
-            i.dropdown.icon
-            .menu  
-              a.item(data-value='')
-                | 全部
-              a.item(data-value="交通部%")
-                | 交通部
-              a.item(data-value="財政部%")
-                | 財政部
-              a.item(data-value="國防部%")
-                | 國防部 
-              a.item(data-value="內政部%")
-                | 內政部
-              a.item(data-value="教育部%")
-                | 教育部
-              a.item(data-value="(臺|台)北市%")
-                | 臺北市      
-              a.item(data-value="%學%")
-                | 學校單位  
-          //.ui.input.focus.input-address
-              //input#input-address(placeholder="地址..." type="text")
-        h3
-            i.data-description.info.link.icon(data-title="資料特性說明",data-content="1. 公有土地。<br/>2. 位在可建築分區。<br/>3. 該土地無建築物登記，例如預計開發的空軍總部舊址有建築物登記，就未顯示於本次資料。<br/>4. 土地面積單位為平方公尺。<br/>5. 國有財產法 53 條明訂 500坪 (1650平方公尺) 以上非公用公有土地禁止標售。<br/>6. 正在進行「都市更新」的公有土地，特別以「紅色」表示。",data-variation="large")
-    section#map.map-page.page
-      #map-loading.ui.dimmer
-        .ui.medium.text.loader
-          | 正在產生地圖
-      #map-canvas
-      .text-vertical-center.map-notice
-        h1
-          i.angle.double.up.icon
-          | 請選擇地區
-          i.angle.double.up.icon
-    section#vision.vision-page.page  
-      .text-vertical-center.padding
-        h1
-          | 土地好願景
-        .ui.three.items
-          .item
-              .image
-                img(src="images/vision01.jpg")
-              .content
-                  p.name 信義區富陽自然生態公園
-                  p.description
-                    | 從廢棄的國軍兵工廠用地，變成台北樹蛙安心棲息的生態公園。
-                  .extra
-                    .ui.divided.horizontal.mini.list
-                      .item 認養單位：荒野保護協會
-                      .item 圖片來源：台北市公燈處
-          .item
-              .image
-                  img(src="images/vision02.jpg")
-              .content
-                  p.name 松山區幸福農場
-                  p.description
-                    | 國防部閒置用地，變成168個家庭實現城市農耕夢的幸福農場。
-                  .extra
-                    .ui.divided.horizontal.mini.list
-                      .item 經營單位：復健里里辦公處
-          .item
-              .image
-                  img(src="images/vision03.jpg")
-              .content
-                  p.name 萬華區南機場樂活園地
-                  p.description 
-                    | 閒置的公有建築物，變成社區共餐廚房與樂齡活動中心。
-                  .extra
-                    .ui.divided.horizontal.mini.list
-                      .item 經營單位：忠勤里里辦公處
-                      .item 圖片來源：太陽自創旅館 - 南機場
-          .item
-              .image
-                  img(src="images/vision04.jpg")
-              .content
-                  p.name 松山區寶清段社會住宅
-                  p.description 
-                    | 公有土地興建只租不賣的社會住宅，增加城市的公共住宅數量。
-                  .extra                
-                    .ui.divided.horizontal.mini.list
-                      .item 議題推動單位：社會住宅推動聯盟
-                      .item 圖片來源：台北市都市發展局
-          .item
-              .image
-                  img(src="images/vision05.jpg")
-              .content
-                  p.name 中山區 FutureWard 未來產房
-                  p.description
-                    | 既有的校園公共空間，變成城市創新與青年創業的社群空間。
-                  .extra
-                    .ui.divided.horizontal.mini.list
-                      .item 經營單位：FutureWard 未來產房 
-                      .item 圖片來源：FutureWard 未來產房
+  #area
+    .container
+      .row
+        .col-md-8.col-md-offset-2.col-sm-8.col-sm-offset-2
+          h1.text-center.page-title
+            | 天龍特公地大搜查
+          .row
+            .col-md-4.col-sm-4
+              .dropdown.choice-block
+                button.btn.btn-default.btn-lg.btn-block.dropdown-toggle(type="button", id="choice-block", data-toggle="dropdown", aria-haspopup="true", aria-expanded="false")
+                  | 行政區
+                  span.caret
+                ul.dropdown-menu(role='menu',  aria-labelledby="choice-block")
+                  li(role="presentation")
+                    a(data-value='', role="menuitem")
+                      | 全部
+                  li(role="presentation")
+                    a(data-value='中正區')
+                      | 中正區
+                  li(role="presentation")
+                    a(data-value='大同區')
+                      | 大同區
+                  li(role="presentation")
+                    a(data-value='中山區')
+                      | 中山區
+                  li(role="presentation")
+                    a(data-value='萬華區')
+                      | 萬華區
+                  li(role="presentation")
+                    a(data-value='信義區')
+                      | 信義區
+                  li(role="presentation")
+                    a(data-value='松山區')
+                      | 松山區
+                  li(role="presentation")
+                    a(data-value='大安區')
+                      | 大安區
+                  li(role="presentation")
+                    a(data-value='南港區')
+                      | 南港區
+                  li(role="presentation")
+                    a(data-value='北投區')
+                      | 北投區
+                  li(role="presentation")
+                    a(data-value='內湖區')
+                      | 內湖區
+                  li(role="presentation")
+                    a(data-value='士林區')
+                      | 士林區
+                  li(role="presentation")
+                    a(data-value='文山區')
+                      | 文山區
+            .col-md-4.col-sm-4
+              .dropdown.choice-area
+                button.btn.btn-default.btn-lg.btn-block.dropdown-toggle(type="button", id="choice-area", data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")
+                  | 面積
+                  span.caret
+                ul.dropdown-menu(role='menu',  aria-labelledby="choice-area")
+                  li(role="presentation")
+                    a(data-value='')
+                      | 全部  
+                  li(role="presentation")        
+                    a(data-value=">=500")
+                      | 500坪(1650平方公尺)以上
+                  li(role="presentation")
+                    a(data-value=">20 AND <500")
+                      | 20坪 ~ 500坪
+                  li(role="presentation")
+                    a(data-value="<=20")
+                      | 20坪以下
+            .col-md-4.col-sm-4
+              .dropdown.choice-unit
+                button.btn.btn-default.btn-lg.btn-block.dropdown-toggle(type="button", id="choice-unit", data-toggle="dropdown",aria-haspopup="true", aria-expanded="true")
+                  | 經營單位
+                  span.caret
+                ul.dropdown-menu(role='menu',  aria-labelledby="choice-unit")
+                  li
+                    a.item(data-value='')
+                      | 全部
+                  li
+                    a.item(data-value="交通部%")
+                      | 交通部
+                  li(role="presentation")
+                    a.item(data-value="財政部%")
+                      | 財政部
+                  li(role="presentation")
+                    a.item(data-value="國防部%")
+                      | 國防部 
+                  li(role="presentation")
+                    a.item(data-value="內政部%")
+                      | 內政部
+                  li(role="presentation")
+                    a.item(data-value="教育部%")
+                      | 教育部
+                  li(role="presentation")
+                    a.item(data-value="(臺|台)北市%")
+                      | 臺北市      
+                  li(role="presentation")
+                    a.item(data-value="%學%")
+                      | 學校單位  
+          p.data-info.text-center
+            a(data-toggle="collapse", href="#collapse-data-info", aria-expanded="false", aria-controls="collapse-data-info")
+              span.glyphicon.glyphicon-info-sign
+              | 更多資料特性說明
+          #collapse-data-info.collapse(aria-expanded="false")
+            .well
+                | 1. 公有土地。<br/>2. 位在可建築分區。<br/>3. 該土地無建築物登記，例如預計開發的空軍總部舊址有建築物登記，就未顯示於本次資料。<br/>4. 土地面積單位為平方公尺。<br/>5. 國有財產法 53 條明訂 500坪 (1650平方公尺) 以上非公用公有土地禁止標售。<br/>6. 正在進行「都市更新」的公有土地，特別以「紅色」表示。
+      //.ui.input.focus.input-address
+        //input#input-address(placeholder="地址..." type="text")
+    h3
+      i.data-description.info.link.icon(data-title="資料特性說明",data-content="1. 公有土地。<br/>2. 位在可建築分區。<br/>3. 該土地無建築物登記，例如預計開發的空軍總部舊址有建築物登記，就未顯示於本次資料。<br/>4. 土地面積單位為平方公尺。<br/>5. 國有財產法 53 條明訂 500坪 (1650平方公尺) 以上非公用公有土地禁止標售。<br/>6. 正在進行「都市更新」的公有土地，特別以「紅色」表示。",data-variation="large")
+  
+
+  #map
+    h1.text-center.map-notice
+      | 請選擇搜查條件
+    #map-loading.modal.fade
+      .modal-dialog
+        .modal-content
+          .modal-body
+            h3.text-center
+              | 地圖產生中 ...
+    #map-canvas
+          
+  #vision
+    .container
+      .row
+        .col-md-8.col-md-offset-2.col-sm-8.col-sm-offset-2
+          h1.text-center.page-title
+            | 土地好願景
+
+        .col-md-4.col-sm-6
+          .thumbnail
+            img.img-responsive.center-block(src="images/vision01.jpg")
+            .caption
+              h3
+                | 信義區富陽自然生態公園
+              p
+                | 從廢棄的國軍兵工廠用地，變成台北樹蛙安心棲息的生態公園。
+              small.text-muted
+                | 認養單位：荒野保護協會 | 圖片來源：台北市公燈處
+        .col-md-4.col-sm-6
+          .thumbnail
+            img.img-responsive.center-block(src="images/vision02.jpg")
+            .caption
+              h3
+                | 松山區幸福農場
+              p
+                | 國防部閒置用地，變成168個家庭實現城市農耕夢的幸福農場。
+              small.text-muted
+                | 經營單位：復健里里辦公處
+        .col-md-4.col-sm-6    
+          .thumbnail
+            img.img-responsive.center-block(src="images/vision03.jpg")
+            .caption
+              h3
+                | 萬華區南機場樂活園地
+              p
+                | 閒置的公有建築物，變成社區共餐廚房與樂齡活動中心。 
+              small.text-muted
+                | 經營單位：忠勤里里辦公處 | 圖片來源：太陽自創旅館 - 南機場
+      .row                                            
+        .col-md-4.col-sm-6    
+          .thumbnail
+            img.img-responsive.center-block(src="images/vision04.jpg")
+            .caption
+              h3
+                | 松山區寶清段社會住宅
+              p
+                | 公有土地興建只租不賣的社會住宅，增加城市的公共住宅數量。
+              small.text-muted
+                | 議題推動單位：社會住宅推動聯盟 | 圖片來源：台北市都市發展局
+        .col-md-4.col-sm-6    
+          .thumbnail
+            img.img-responsive.center-block(src="images/vision05.jpg")
+            .caption
+              h3
+                | 中山區 FutureWard 未來產房
+              p
+                | 既有的校園公共空間，變成城市創新與青年創業的社群空間。
+              small.text-muted
+                | 經營單位：FutureWard 未來產房 | 圖片來源：FutureWard 未來產房
+                
+
+
 
