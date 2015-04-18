@@ -6,9 +6,8 @@ body {
 }
 
 .navbar-default {
-    background-color: rgba(255, 255, 255, 0.8);
-    border-color: transparent;
-    color: #ff0000;
+    background-color: #ffffff;
+    box-shadow: 0 3px 3px rgba(0,0,0,0.1);
 }
 
 .navbar-default .navbar-nav > li > a, 
@@ -41,7 +40,7 @@ body {
 }
 
 #logo {
-    margin-top: -15px;
+    margin-top: -20px;
     padding: 0;
     height: 48px;
     width: auto;
@@ -97,12 +96,7 @@ body {
 }
 
 .request-item:hover {      
-    background-color: #dedede;
-    -webkit-transform: scale(1.1);
-    -moz-transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    -o-transform: scale(1.1);
-    transform: scale(1.1);    
+    background-color: #dedede; 
 }
 
 .request-item span {
