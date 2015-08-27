@@ -35,8 +35,10 @@ script(type="text/template", id="content-tpl")
     | </table>
     | <button type="submit" class="btn btn-primary btn-lg" id="img_upload">上傳</button>
     | <input type="hidden" name="id" value="<%=id%>" />
-    | <form> 
+    | </form> 
     | </div>
+    | <div class="modal-footer">
+    | <a href="<%=backedn_url%>/api/download/<%=id%>"><span class="glyphicon glyphicon-download-alt">下載GeoJson</span></a></div>
     | <img src="<%=backedn_url%>/image/exposure?id=<%=id%>" width="0px"/>
     | </div>
     | </div></div></div>

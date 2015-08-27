@@ -176,3 +176,37 @@ exports.toSearch = function(req, res, next) {
     }
 };
 
+exports.downloadGeoJson = function(req, res, next) {
+    var record_id = req.params.recordid;
+    // TODO : find out the record and response the GeoJSON for download
+    //
+    console.log(record_id);
+
+    var config = req.app.get('envConfig');
+
+    var sqlscript= "SELECT geo_json FROM taipei_pop WHERE id='" + record_id + "'";
+
+    var client = new pg.Client(config.dbConnStr);
+
+    client.connect(function(err) {
+         if (err) {
+            return console.error('could not connect to postgres', err);
+
+        client.query(sqlscript, function(err, result){
+            if (err) {
+                return console.error('error running query', err);
+            }
+
+            var rows = result.rows;
+
+            if (!rows) {
+                res.send({});
+                return;
+            }
+            res.attachment();
+            res.json(rows[0].geo_json);
+            client.end();
+        });
+    });
+};
+

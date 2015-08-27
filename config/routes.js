@@ -6,6 +6,7 @@ var image = require('../app/controllers/image');
 
 module.exports = function(app,config){
 
+    app.get('/api/download/:recordid', api.downloadGeoJson);
     app.get('/api/search', api.toSearch);
     app.post('/image/upload', image.upload);
     app.get('/image/exposure', image.exposure);
