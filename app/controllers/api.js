@@ -189,9 +189,9 @@ exports.downloadGeoJson = function(req, res, next) {
     var client = new pg.Client(config.dbConnStr);
 
     client.connect(function(err) {
-         if (err) {
+        if (err) {
             return console.error('could not connect to postgres', err);
-
+        }
         client.query(sqlscript, function(err, result){
             if (err) {
                 return console.error('error running query', err);
